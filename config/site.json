@@ -1,0 +1,84 @@
+{
+  "_README": "THE WHOLE CLIENT LIVES IN THIS FILE. An Orbilynk client site is a CONFIGURATION, not a rebuild. Any fact shaped { value, ask } with value:null is UNFILLED and renders as a visible placeholder on the page. Run `npm run placeholders` for the list to send the client. ONE FACT, ONE SOURCE: the pages, the schema, the sitemap and the bot dictionary all read THIS file and nothing else.",
+
+  "client": "bella-friends",
+  "orbilynkClientId": 8,
+
+  "brand": {
+    "name": "Bella Friends Preschool",
+    "short": "Bella Friends",
+    "word1": "BELLA",
+    "word2": "FRIENDS",
+    "tagline": { "value": null, "ask": "One line under the school name, in the school's own words (e.g. 'Where little friends grow'). Max 60 characters." },
+    "logo": { "value": null, "ask": "Logo file, SVG or PNG with a transparent background, at least 400px wide." },
+    "layout": "modern",
+    "palette": "sunny"
+  },
+
+  "locale": { "default": "en", "languages": ["en", "es"], "autoRedirect": false },
+
+  "site": { "domain": { "value": null, "ask": "The live domain for the school (e.g. bellafriendspreschool.com). Until it is set, canonical URLs use the preview host and the site is noindex." } },
+
+  "contact": {
+    "phone": { "value": null, "ask": "The phone number a parent should call, exactly as it should be printed." },
+    "email": { "value": null, "ask": "The email address enquiries should reach." },
+    "whatsapp": { "value": null, "ask": "WhatsApp number, with country code, if the school uses WhatsApp. Say 'none' if it does not." },
+    "hours": { "value": null, "ask": "Opening hours, per day (e.g. Mon-Fri 6:30am-6:00pm). Needed for Google and for the page." }
+  },
+
+  "owner": { "name": "Brittany Marsh", "role": { "value": null, "ask": "Brittany's title as it should appear (Owner, Director, Founder...)." } },
+
+  "trust": {
+    "licence": { "value": null, "ask": "NC DCDEE licence number, exactly as printed on the certificate. This is the single strongest trust fact on the page and no competitor we audited publishes it." },
+    "starRating": { "value": null, "ask": "NC star-rated licence, if the school holds one, as the certificate words it." },
+    "yearsOpen": { "value": null, "ask": "The year the school opened. We print the year, never a 'X years of experience' claim we cannot source." },
+    "ratios": { "value": null, "ask": "Teacher-to-child ratio for each age group, as the school actually staffs it. No competitor we audited states one." },
+    "credentials": { "value": null, "ask": "Staff qualifications you want named (e.g. 'all lead teachers hold an NC Early Childhood Credential'). Only what is true and checkable." },
+    "insurance": { "value": null, "ask": "Anything else a parent checks: CPR/First Aid certification, background checks, security system. One line each." }
+  },
+
+  "campuses": [
+    { "name": "Main campus", "address": { "value": null, "ask": "Full street address of the main campus, including ZIP." }, "mapQuery": { "value": null, "ask": "If the Google Maps pin differs from the street address, paste the exact search text." } }
+  ],
+
+  "programs": [
+    { "slug": "infants",    "name": "Infants",      "ages": "6 weeks - 18 months",  "blurb": { "value": null, "ask": "2-3 sentences about the Infants room, in the school's voice." }, "capacity": { "value": null, "ask": "How many infant places the school has, if you want it shown." } },
+    { "slug": "toddlers",   "name": "Toddlers",     "ages": "18 months - 3 years",  "blurb": { "value": null, "ask": "2-3 sentences about the Toddlers room." }, "capacity": { "value": null, "ask": "Toddler places, optional." } },
+    { "slug": "preschool",  "name": "Preschool",    "ages": "3 - 4 years",          "blurb": { "value": null, "ask": "2-3 sentences about Preschool." }, "capacity": { "value": null, "ask": "Preschool places, optional." } },
+    { "slug": "pre-k",      "name": "Pre-K",        "ages": "4 - 5 years",          "blurb": { "value": null, "ask": "2-3 sentences about Pre-K and kindergarten readiness." }, "capacity": { "value": null, "ask": "Pre-K places, optional." } },
+    { "slug": "school-age", "name": "After School", "ages": "5 - 12 years",         "blurb": { "value": null, "ask": "2-3 sentences about the after-school programme. Say 'not offered' if the school does not run one." }, "capacity": { "value": null, "ask": "After-school places, optional." } }
+  ],
+
+  "tuition": {
+    "_NOTE": "Primrose and Goddard both publish NO tuition (opened 2026-11-23). We publish no number we were not given. These fields are optional and stay off the page while null.",
+    "showPrices": false,
+    "from": { "value": null, "ask": "Only if the school WANTS prices public: the weekly rate per age group. Leave as 'no' to keep tuition behind the enquiry form, which is what the national chains do." },
+    "depositPolicy": { "value": null, "ask": "Registration fee or deposit, and whether it is refundable." }
+  },
+
+  "photos": {
+    "_NOTE": "Every slot renders a sized, labelled placeholder until a real file arrives. We never put a stock photo on a school page and let a parent think it is their child's classroom.",
+    "hero": { "value": null, "ask": "One wide photo for the top of the page: real children in the real room, landscape, at least 1600px wide." },
+    "rooms": { "value": null, "ask": "One photo per program room (Infants, Toddlers, Preschool, Pre-K, After School). Landscape, at least 1200px wide." },
+    "outside": { "value": null, "ask": "One photo of the playground or the entrance a parent will recognise on arrival." },
+    "team": { "value": null, "ask": "A photo of Brittany and, if they agree, the lead teachers." }
+  },
+
+  "reviews": {
+    "_NOTE": "NOT INVENTED. Nothing renders here until the school sends real, attributable reviews or connects its Google profile.",
+    "googlePlaceId": { "value": null, "ask": "The Google Business Profile link for the school, so reviews come from Google and never from us." },
+    "quotes": []
+  },
+
+  "enquiry": {
+    "destination": { "value": null, "ask": "WHERE EVERY FORM SUBMISSION MUST LAND: which inbox, and which phone for the text alert. This is written down the moment the form is built - no form ships without a destination." },
+    "fields": ["parentName", "email", "phone", "childAge", "startMonth", "message"],
+    "tourSlots": { "value": null, "ask": "Which days and times the school can take tours, so the form offers real slots instead of 'we will be in touch'." }
+  },
+
+  "integrations": {
+    "leadStore": "file",
+    "_leadStoreNOTE": "file = writes to .data/leads.json on this deployment and shows in /admin. 'supabase' is wired in lib/leadStore.js but OFF: it needs a project and keys, which only Spicy sets. NOT CONFIGURED.",
+    "analytics": { "value": null, "ask": "Google Analytics / Search Console access, when the domain is live." }
+  }
+}

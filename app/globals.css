@@ -1,0 +1,226 @@
+/* ============================================================
+   BELLA FRIENDS — ONE STYLESHEET, SIX LAYOUTS, THREE PALETTES.
+   Components never name a layout. They read the custom properties
+   below; each [data-layout] redefines them. A new layout = a new
+   block here + one row in lib/layout.js. No rebuild, ever.
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; }
+
+:root {
+  /* ---- palette: sunny (default) ---- */
+  --ink:        #22201c;
+  --ink-soft:   #5d574e;
+  --paper:      #fffdf8;
+  --paper-2:    #fff6e6;
+  --line:       #e8dfcc;
+  --brand:      #d8562a;
+  --brand-ink:  #8c2f12;
+  --accent:     #f2b01e;
+  --accent-2:   #2f8f6e;
+  --on-brand:   #fffdf8;
+  --focus:      #1b63d6;
+
+  /* ---- layout tokens (defaults = "modern") ---- */
+  --font-display: ui-rounded, "Trebuchet MS", "Segoe UI", system-ui, sans-serif;
+  --font-body:    system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --step-hero:  clamp(2.3rem, 9vw, 4.4rem);
+  --step-h2:    clamp(1.5rem, 5.2vw, 2.3rem);
+  --step-h3:    1.12rem;
+  --step-body:  1.02rem;
+  --lh-hero:    1.03;
+  --tracking-hero: -0.025em;
+  --radius:     22px;
+  --radius-sm:  14px;
+  --card-border: 1px solid var(--line);
+  --card-shadow: 0 1px 2px rgba(34,32,28,.05), 0 10px 26px -18px rgba(34,32,28,.28);
+  --card-bg:    #fff;
+  --gap:        18px;
+  --section-pad: 44px;
+  --shell:      1120px;
+  --hero-align: left;
+  --hero-art:   block;
+  --grid-cards: 1fr;
+  --rule:       none;
+  --eyebrow-case: uppercase;
+  --eyebrow-track: .14em;
+  --btn-radius: 999px;
+  --facts-dir:  column;
+}
+
+[data-palette="forest"] {
+  --paper: #fbfdfa; --paper-2: #e9f3ec; --line: #d4e3d8;
+  --brand: #1f6b4a; --brand-ink: #144a33; --accent: #e0a526; --accent-2: #2f6f9f;
+  --ink: #1b241f; --ink-soft: #4e5a52; --on-brand: #fbfdfa;
+}
+[data-palette="berry"] {
+  --paper: #fffafc; --paper-2: #fdeef4; --line: #f0d9e3;
+  --brand: #a8336b; --brand-ink: #76204b; --accent: #f0a93c; --accent-2: #3f7f8f;
+  --ink: #241b20; --ink-soft: #5c4e55; --on-brand: #fffafc;
+}
+
+/* ===================== LAYOUT: classic ===================== */
+[data-layout="classic"] {
+  --font-display: Georgia, "Iowan Old Style", "Times New Roman", serif;
+  --step-hero: clamp(2rem, 7.4vw, 3.5rem);
+  --lh-hero: 1.12; --tracking-hero: 0;
+  --radius: 4px; --radius-sm: 3px; --btn-radius: 3px;
+  --card-border: 1px solid var(--ink); --card-shadow: none; --card-bg: transparent;
+  --hero-align: center; --hero-art: none;
+  --rule: 1px solid var(--line);
+  --section-pad: 52px; --eyebrow-track: .22em;
+}
+/* ===================== LAYOUT: playhouse =================== */
+[data-layout="playhouse"] {
+  --step-hero: clamp(2.4rem, 10vw, 4.8rem);
+  --radius: 34px; --radius-sm: 22px;
+  --card-shadow: 0 12px 0 -4px var(--accent), 0 1px 2px rgba(0,0,0,.08);
+  --gap: 22px; --section-pad: 40px;
+}
+/* ===================== LAYOUT: calm ======================== */
+[data-layout="calm"] {
+  --font-display: var(--font-body);
+  --step-hero: clamp(1.9rem, 6.4vw, 3rem);
+  --step-h2: clamp(1.3rem, 4.2vw, 1.8rem);
+  --step-body: .98rem;
+  --lh-hero: 1.18; --tracking-hero: -0.01em;
+  --radius: 10px; --radius-sm: 8px; --btn-radius: 8px;
+  --card-border: 1px solid var(--line); --card-shadow: none; --card-bg: transparent;
+  --section-pad: 64px; --gap: 26px; --shell: 980px;
+  --eyebrow-case: none; --eyebrow-track: .02em;
+}
+/* ===================== LAYOUT: academy ===================== */
+[data-layout="academy"] {
+  --font-display: "Segoe UI Semibold", system-ui, sans-serif;
+  --step-hero: clamp(2rem, 7vw, 3.2rem);
+  --radius: 8px; --radius-sm: 6px; --btn-radius: 6px;
+  --card-bg: var(--paper-2); --card-shadow: none;
+  --section-pad: 40px; --gap: 14px;
+  --facts-dir: row;
+}
+@media (min-width: 620px) { [data-layout="academy"] { --grid-cards: 1fr 1fr; } }
+/* ===================== LAYOUT: storybook =================== */
+[data-layout="storybook"] {
+  --font-display: "Iowan Old Style", Georgia, serif;
+  --step-hero: clamp(2.2rem, 8.6vw, 4rem);
+  --lh-hero: 1.06;
+  --radius: 2px 28px 2px 28px; --radius-sm: 2px 18px 2px 18px; --btn-radius: 999px;
+  --card-bg: #fff; --card-shadow: 6px 6px 0 0 var(--ink);
+  --card-border: 1.5px solid var(--ink);
+  --section-pad: 48px;
+}
+
+/* ===================== primitives ========================== */
+body {
+  background: var(--paper); color: var(--ink);
+  font-family: var(--font-body); font-size: var(--step-body); line-height: 1.6;
+}
+.shell { width: 100%; max-width: var(--shell); margin: 0 auto; padding: 0 16px; }
+section { padding: var(--section-pad) 0; }
+h1, h2, h3 { font-family: var(--font-display); margin: 0 0 .5em; }
+h1 { font-size: var(--step-hero); line-height: var(--lh-hero); letter-spacing: var(--tracking-hero); }
+h2 { font-size: var(--step-h2); line-height: 1.15; }
+h3 { font-size: var(--step-h3); line-height: 1.3; }
+p  { margin: 0 0 1em; max-width: 62ch; color: var(--ink-soft); }
+a  { color: var(--brand-ink); }
+img, svg { max-width: 100%; height: auto; }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: 4px; }
+
+.eyebrow {
+  font-size: .76rem; font-weight: 700; letter-spacing: var(--eyebrow-track);
+  text-transform: var(--eyebrow-case); color: var(--brand-ink); margin: 0 0 .6em;
+}
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: .5em;
+  min-height: 48px; padding: 12px 22px; border-radius: var(--btn-radius);
+  font: inherit; font-weight: 700; text-decoration: none; cursor: pointer;
+  border: 2px solid var(--brand); background: var(--brand); color: var(--on-brand);
+}
+.btn--ghost { background: transparent; color: var(--brand-ink); }
+.btn--wide { width: 100%; }
+.cards { display: grid; grid-template-columns: var(--grid-cards); gap: var(--gap); }
+.card {
+  background: var(--card-bg); border: var(--card-border); border-radius: var(--radius);
+  box-shadow: var(--card-shadow); padding: 18px;
+}
+.band { background: var(--paper-2); border-top: var(--rule); border-bottom: var(--rule); }
+
+/* hero */
+.hero { text-align: var(--hero-align); padding-top: 28px; }
+.hero__art { display: var(--hero-art); }
+.hero__cta { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
+@media (min-width: 560px) { .hero__cta { flex-direction: row; flex-wrap: wrap; } }
+
+/* facts band — the licence/ratios/hours row, the thing nobody else prints */
+.facts { display: flex; flex-direction: var(--facts-dir); flex-wrap: wrap; gap: var(--gap); list-style: none; margin: 0; padding: 0; }
+.facts > li { flex: 1 1 180px; }
+.facts dt { font-size: .76rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft); }
+.facts dd { margin: .25em 0 0; font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; }
+
+/* photo slot — always sized, so CLS stays 0 even before a real photo arrives */
+.photo { position: relative; display: block; width: 100%; background: var(--paper-2); border: 1.5px dashed var(--line); border-radius: var(--radius-sm); overflow: hidden; }
+.photo > img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.photo__note { position: absolute; inset: 0; display: grid; place-content: center; text-align: center; padding: 14px; font-size: .78rem; color: var(--ink-soft); }
+.photo__art { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+/* PLACEHOLDER — must be impossible to mistake for finished copy */
+.ph {
+  display: inline-block; padding: 2px 8px; border: 1.5px dashed var(--brand);
+  border-radius: 6px; background: #fff4e8; color: var(--brand-ink);
+  font-size: .8rem; font-weight: 700; line-height: 1.45;
+}
+.ph__ask { display: block; font-weight: 400; color: var(--ink-soft); }
+.ph--block { display: block; }
+
+/* header / sticky call bar */
+.hdr { position: sticky; top: 0; z-index: 20; background: var(--paper); border-bottom: 1px solid var(--line); }
+.hdr__row { display: flex; align-items: center; gap: 12px; min-height: 60px; }
+.hdr__mark { font-family: var(--font-display); font-weight: 800; font-size: 1.05rem; letter-spacing: .02em; text-decoration: none; color: var(--ink); }
+.hdr__mark small { display: block; font-size: .64rem; letter-spacing: .2em; color: var(--brand-ink); }
+.hdr__spacer { flex: 1; }
+.langs { display: flex; gap: 6px; }
+.langs a { min-height: 32px; min-width: 40px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid var(--line); border-radius: 8px; font-size: .8rem; text-decoration: none; }
+.langs a[aria-current="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.nav { display: flex; flex-wrap: wrap; gap: 4px 14px; padding: 0 0 10px; }
+.nav a { font-size: .9rem; min-height: 32px; display: inline-flex; align-items: center; }
+
+/* bottom bar: the 2am answer, always reachable with one thumb */
+.callbar { position: sticky; bottom: 0; z-index: 30; display: flex; gap: 8px; padding: 8px 12px calc(8px + env(safe-area-inset-bottom)); background: var(--paper); border-top: 1px solid var(--line); }
+.callbar .btn { flex: 1; min-height: 48px; }
+
+/* form */
+.field { display: block; margin: 0 0 14px; }
+.field > span { display: block; font-weight: 700; font-size: .9rem; margin-bottom: 5px; }
+.field input, .field select, .field textarea {
+  width: 100%; min-height: 48px; padding: 12px 13px; font: inherit; color: var(--ink);
+  background: #fff; border: 1.5px solid var(--line); border-radius: var(--radius-sm);
+}
+.field textarea { min-height: 96px; }
+.hint { font-size: .82rem; color: var(--ink-soft); margin: -8px 0 14px; }
+.ok  { padding: 14px; border-radius: var(--radius-sm); background: #e8f6ef; border: 1.5px solid var(--accent-2); }
+.bad { padding: 14px; border-radius: var(--radius-sm); background: #fdecec; border: 1.5px solid #c0392b; }
+
+.ftr { border-top: 1px solid var(--line); padding: 28px 0 10px; font-size: .9rem; }
+.ftr a { display: inline-block; min-height: 32px; }
+.skip { position: absolute; left: -9999px; }
+.skip:focus { left: 8px; top: 8px; z-index: 50; background: var(--paper); padding: 10px; }
+
+/* ============================================================
+   KEYBOARD OPEN, 390x844 -> about 390x508 of usable height.
+   When the browser scrolls a focused field into view it stops at the
+   top of the viewport, which on this site is UNDER the sticky header.
+   scroll-margin-top is the fix: the field lands below the header, not
+   behind it. Measured 2026-11-23: focusing the first field at 390x508
+   left it at y=456, off screen, before this existed.
+   ============================================================ */
+.field input, .field select, .field textarea { scroll-margin-top: 84px; scroll-margin-bottom: 24px; }
+.field { scroll-margin-top: 76px; }
+
+/* Nothing a thumb can hit is allowed under 24px in either direction. */
+.nav a, .langs a, .ftr a, .btn { min-height: 32px; }
+
+/* A status badge is NOT a placeholder. The dashed amber marker must mean one
+   thing only — "the client still has to send this" — or it stops meaning it. */
+.tag { display: inline-block; padding: 3px 9px; border-radius: 999px; background: var(--ink); color: var(--paper); font-size: .7rem; font-weight: 700; letter-spacing: .06em; vertical-align: middle; }
+.tag--test { background: #8a6d1f; }
