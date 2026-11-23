@@ -1,6 +1,7 @@
 import { makeT } from "@/lib/t";
 import { buildAnswers } from "@/lib/answers";
 import { site } from "@/lib/site";
+import { faqSchema } from "@/lib/schema";
 import Header from "@/components/kit/Header";
 import CallBar from "@/components/kit/CallBar";
 import Footer from "@/components/kit/Footer";
@@ -24,20 +25,12 @@ export default async function Page({ params }) {
   const t = makeT(lang);
   const rows = buildAnswers(t, site);
   const answered = rows.filter((r) => r.a);
-  const ld = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: answered.map((r) => ({
-      "@type": "Question",
-      name: r.q,
-      acceptedAnswer: { "@type": "Answer", text: r.a },
-    })),
-  };
+  const ld = faqSchema(rows);
   return (
     <>
       <Header lang={lang} t={t} />
       <main id="main">
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />
+        {ld && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />}
         <section>
           <div className="shell" style={{ maxWidth: 740 }}>
             <p className="eyebrow">{t("Questions")}</p>

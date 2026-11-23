@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import "../globals.css";
 import { LANGS, isLang, makeT } from "@/lib/t";
 import { resolveLayout, resolvePalette } from "@/lib/layout";
-import { site, ORIGIN, INDEXABLE } from "@/lib/site";
+import { site, val, ORIGIN, INDEXABLE } from "@/lib/site";
 
 /**
  * THIS IS THE ROOT LAYOUT AND IT LIVES INSIDE [lang] ON PURPOSE.
@@ -19,7 +19,7 @@ export async function generateMetadata({ params }) {
   const { lang } = await params;
   if (!isLang(lang)) return {};
   const t = makeT(lang);
-  const area = site.campuses[0]?.city || "North Carolina";
+  const area = val(site.campuses[0]?.city) || "North Carolina";
   return {
     title: {
       default: t("{name} — Licensed Preschool and Childcare in {area}", { name: site.brand.name, area }),

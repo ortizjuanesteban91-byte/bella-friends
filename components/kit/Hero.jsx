@@ -4,7 +4,7 @@ import F from "./Placeholder";
 import PhotoSlot from "./PhotoSlot";
 
 export default function Hero({ lang, t, qs = "" }) {
-  const area = site.campuses[0]?.city || "North Carolina";
+  const area = val(site.campuses[0]?.city) || "North Carolina";
   return (
     <section className="hero">
       <div className="shell">

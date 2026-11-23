@@ -1,4 +1,5 @@
 import { site, val } from "@/lib/site";
+import { addressOneLine } from "@/lib/schema";
 import F from "./Placeholder";
 
 export default function Footer({ lang, t }) {
@@ -10,7 +11,7 @@ export default function Footer({ lang, t }) {
         <p>
           <strong>{site.brand.name}</strong> — {site.campuses[0]?.name}
           <br />
-          <F fact={site.campuses[0]?.address} />
+          {addressOneLine(site) || <F fact={site.campuses[0]?.street} />}
         </p>
         <p>
           {t("Phone")}: {phone ? <a href={`tel:${String(phone).replace(/[^+\d]/g, "")}`}>{phone}</a> : <F fact={site.contact.phone} />}

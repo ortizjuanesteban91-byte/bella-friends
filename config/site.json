@@ -23,7 +23,9 @@
     "phone": { "value": null, "ask": "The phone number a parent should call, exactly as it should be printed." },
     "email": { "value": null, "ask": "The email address enquiries should reach." },
     "whatsapp": { "value": null, "ask": "WhatsApp number, with country code, if the school uses WhatsApp. Say 'none' if it does not." },
-    "hours": { "value": null, "ask": "Opening hours, per day (e.g. Mon-Fri 6:30am-6:00pm). Needed for Google and for the page." }
+    "hours": { "value": null, "ask": "Opening hours, per day (e.g. Mon-Fri 6:30am-6:00pm). Needed for Google and for the page." },
+    "_HOURS_SPEC_NOTE": "WE fill this from her plain answer above - she never learns our format. Google's LocalBusiness page RECOMMENDS openingHoursSpecification objects, not a free-text string. Empty = no hours in the schema, which is correct until she answers. Shape: [{\"days\":[\"Monday\",\"Tuesday\",\"Wednesday\",\"Thursday\",\"Friday\"],\"opens\":\"06:30\",\"closes\":\"18:00\"}]",
+    "hoursSpec": []
   },
 
   "owner": { "name": "Brittany Marsh", "role": { "value": null, "ask": "Brittany's title as it should appear (Owner, Director, Founder...)." } },
@@ -38,7 +40,16 @@
   },
 
   "campuses": [
-    { "name": "Main campus", "address": { "value": null, "ask": "Full street address of the main campus, including ZIP." }, "mapQuery": { "value": null, "ask": "If the Google Maps pin differs from the street address, paste the exact search text." } }
+    {
+      "name": "Main campus",
+      "_ADDRESS_NOTE": "SPLIT ON PURPOSE 2026-11-23. Google's own LocalBusiness page (developers.google.com/search/docs/appearance/structured-data/local-business, opened that day) makes `address` a REQUIRED property and says to include as many sub-properties as possible. A single free-text line cannot produce addressLocality or postalCode, and the CITY is also what the page title and the <h1> eyebrow say - with it empty the title degraded to the whole state of North Carolina.",
+      "street": { "value": null, "ask": "Street address of the school, exactly as the post office has it (number, street, suite if any)." },
+      "city": { "value": null, "ask": "The town or city. This one word is the most valuable on the whole site: it is in the page title, the first line a parent reads, and every Google local result." },
+      "zip": { "value": null, "ask": "ZIP code of the school, five digits. Google uses it to decide which parents see you." },
+      "mapQuery": { "value": null, "ask": "If the Google Maps pin differs from the street address, paste the exact search text." },
+      "_GEO_NOTE": "Latitude and longitude, 5+ decimal places, which Google RECOMMENDS. Not asked of the school and never guessed: it is read off the Google Business Profile once that exists. Shape: {\"lat\": 36.07264, \"lng\": -79.79198}",
+      "geo": null
+    }
   ],
 
   "programs": [

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { listLeads, storeNote, driver } from "@/lib/leadStore";
+import { listLeads, storeNote, driver, isDurable } from "@/lib/leadStore";
 import { makeT } from "@/lib/t";
 import { openFacts } from "@/lib/site";
 
@@ -16,22 +16,35 @@ export default async function Admin({ params, searchParams }) {
   const sp = await searchParams;
   const t = makeT(lang);
   const includeQa = sp?.qa === "1";
-  const { rows, total, hiddenQa } = await listLeads({ includeQa });
+  const { rows, total, hiddenQa, error } = await listLeads({ includeQa });
+  const durable = isDurable();
   const open = openFacts();
   return (
     <main id="main" className="shell" style={{ paddingTop: 20, paddingBottom: 40 }}>
       <p className="eyebrow">Bella Friends — owner</p>
       <h1 style={{ fontSize: "1.6rem" }}>Enquiries</h1>
 
-      <p className="bad" style={{ fontSize: ".86rem" }}>
-        <strong>NOT PROTECTED YET.</strong> This screen has no password. It is noindexed and
-        disallowed in robots.txt, but before the real domain goes live it needs a gate.
-        Spicy decides which: Vercel password protection, or a login.
+      {/* THIS BOX ONCE SAID "NOT PROTECTED YET". That stopped being true the
+          moment middleware.js landed, and a false warning on the owner's own
+          screen is a lie that looks like diligence. It now says what is true. */}
+      <p className="ok" style={{ fontSize: ".86rem" }}>
+        <strong>This screen is locked.</strong> It is behind a password at the edge, noindexed
+        and disallowed in robots.txt. If the password is ever unset the screen refuses
+        everyone rather than opening — it fails closed.
       </p>
 
-      <p className="hint">
-        Store: {driver()} — {storeNote()}
+      {/* DURABILITY IS SHOWN, NOT ASSUMED. The owner must be able to see on her own
+          phone whether an enquiry would survive the next deploy. */}
+      <p className={durable ? "hint" : "bad"} style={{ fontSize: ".86rem" }}>
+        <strong>Store:</strong> {driver()} — {storeNote()}
       </p>
+
+      {error && (
+        <p className="bad" style={{ fontSize: ".86rem" }}>
+          <strong>THE ENQUIRY STORE COULD NOT BE READ.</strong> This list is empty because the
+          read failed, NOT because nobody wrote in: {error}
+        </p>
+      )}
 
       <nav className="nav">
         <Link href={`/${lang}/admin/layouts`}>Change the layout</Link>
@@ -53,7 +66,7 @@ export default async function Admin({ params, searchParams }) {
 
       {/* NEVER A CLEAN SCREEN THAT IS ACTUALLY A FILTERED ONE. If rows exist and
           are all test data, say that — do not say "no enquiries". */}
-      {rows.length === 0 && (
+      {rows.length === 0 && !error && (
         <p className="ok">
           {total === 0
             ? "No enquiries yet."

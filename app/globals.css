@@ -214,7 +214,11 @@ img, svg { max-width: 100%; height: auto; }
    behind it. Measured 2026-11-23: focusing the first field at 390x508
    left it at y=456, off screen, before this existed.
    ============================================================ */
-.field input, .field select, .field textarea { scroll-margin-top: 84px; scroll-margin-bottom: 24px; }
+/* 84px, not 24px: the CALLBAR is sticky at the bottom (48px button + 16px padding
+   + the safe area). A field scrolled to 24px from the bottom lands UNDER it with
+   the keyboard up. Measured at 390x844 on 2026-11-23: the message textarea ended
+   at y=869 on an 844 viewport. */
+.field input, .field select, .field textarea { scroll-margin-top: 84px; scroll-margin-bottom: 84px; }
 .field { scroll-margin-top: 76px; }
 
 /* Nothing a thumb can hit is allowed under 24px in either direction. */
