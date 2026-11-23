@@ -15,6 +15,21 @@ export function middleware(req) {
   const { pathname, searchParams } = req.nextUrl;
   const seg = pathname.split("/")[1];
 
+  // 0. /admin IS LOCKED, AND IT FAILS CLOSED.
+  //    Spicy's security order 2026-11-23: an owner screen must never be reachable
+  //    just because somebody forgot a check. If ADMIN_PASSWORD is not set, this
+  //    refuses EVERYONE - an unconfigured deploy is shut, never open. Basic auth
+  //    is used because it needs no login page and no crypto on the edge.
+  if (/^\/[^/]+\/admin(\/|$)/.test(pathname)) {
+    const want = process.env.ADMIN_PASSWORD || "";
+    const sent = req.headers.get("authorization") || "";
+    let ok = false;
+    if (want && sent.startsWith("Basic ")) {
+      try { ok = atob(sent.slice(6)).split(":").slice(1).join(":") === want; } catch { ok = false; }
+    }
+    if (!ok) return new NextResponse("Authentication required.", { status: 401, headers: { "WWW-Authenticate": 'Basic realm="Bella Friends admin"', "Cache-Control": "no-store" } });
+  }
+
   if (pathname === "/" || !LANGS.includes(seg)) {
     if (pathname === "/" || pathname === "") {
       const url = req.nextUrl.clone();
