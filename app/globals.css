@@ -828,3 +828,31 @@ img,svg{max-width:100%;height:auto}
 .btn:active{ transform:translateY(1px) }
 .hdr__badge{ transition:transform .25s cubic-bezier(.34,1.56,.64,1) }
 .hdr__mark:hover .hdr__badge{ transform:rotate(-8deg) scale(1.06) }
+
+/* The stats card is pulled UP over the hero edge (margin-top:-46px) — that
+   is layout 3's signature move and it reads well on iPad and desktop. On a
+   PHONE it landed ON TOP of the hero ticks: measured at 390px, 16px of
+   overlap with the last tick ("Licensed in North Carolina") covered.
+   Caught from his screenshot 2026-11-24 14:58, then measured before fixing.
+   iPad -3px and desktop -31px were already clear, so only the phone changes. */
+@media (max-width:620px){
+  .stats{ margin-top:14px }
+  .hero--slides{ padding-bottom:16px }
+}
+
+/* Two more things the phone render showed, both measured from the same shot:
+   1. The "AI preview" badge sat bottom-right and covered the third tick
+      ("Licensed in North Carolina"). It moves to the top-right of the hero,
+      under the header, where nothing else lives.
+   2. The four stats were one tall column — each cell nearly a full screen.
+      Two across on a phone is both shorter and reads better. */
+@media (max-width:620px){
+  .hero__ai{ top:10px; right:10px; bottom:auto; font-size:.62rem; padding:.26em .65em }
+
+  .stats__grid{ grid-template-columns:1fr 1fr }
+  .stat{ padding:14px 13px; border-right:1px solid var(--line); border-bottom:1px solid var(--line) }
+  .stat:nth-child(2n){ border-right:0 }
+  .stat:nth-child(n+3){ border-bottom:0 }
+  .stat b{ font-size:1.5rem }
+  .stat i{ font-size:.8rem }
+}
