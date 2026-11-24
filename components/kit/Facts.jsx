@@ -28,10 +28,10 @@ export default function Facts({ t }) {
         </li>
       ))}
     </ul>
-    {/* phone and iPad only (CSS hides it on desktop): says out loud that the
-        band swipes, because these are the TRUST facts - a parent must not
-        miss one because it looked like the band ended at card two. */}
-    <p className="facts-hint" aria-hidden="true">{t("Swipe")} <span /> &rarr;</p>
+    {/* The SWIPE rail that used to sit here was REMOVED 2026-11-24.
+        His word, with the screenshot: "Not that all much noise under it."
+        It is not needed any more - the band now slides on its own, which
+        says it is a slider far better than a label did. */}
     </>
   );
 }

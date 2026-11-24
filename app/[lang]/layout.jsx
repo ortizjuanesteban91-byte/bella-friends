@@ -60,6 +60,43 @@ const REVEAL = `(function(){try{
  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",go);else go();
 }catch(e){try{document.documentElement.removeAttribute("data-rv");}catch(x){}}})();`;
 
+
+/**
+ * THE FACTS BAND SLIDES ON ITS OWN, AND THE FINGER WINS.
+ * His word 2026-11-24: "This should be sliding on its own, and if somebody
+ * just touch it and slide it, it goes."
+ *
+ * It is pure enhancement and CANNOT break the page: the band is already a
+ * working scroll-snap slider in CSS alone. If this script never runs, the
+ * parent simply swipes it themselves. Nothing is ever hidden by it.
+ *
+ * Touch, drag, wheel, keyboard or focus pauses it for 7s so it never fights
+ * the person's finger, and a hidden tab pauses it completely.
+ */
+const FACTS_SLIDER = `(function(){try{
+ function go(){
+  var t=document.querySelector(".facts"); if(!t)return;
+  if(window.matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+  var paused=false,timer;
+  function hold(){paused=true;clearTimeout(timer);timer=setTimeout(function(){paused=false;},7000);}
+  ["pointerdown","touchstart","wheel","keydown","focusin","mouseenter"].forEach(function(ev){
+   t.addEventListener(ev,hold,{passive:true});});
+  setInterval(function(){
+   if(paused||document.hidden)return;
+   if(!window.matchMedia("(max-width:899px)").matches)return;   // desktop is a grid
+   var room=t.scrollWidth-t.clientWidth; if(room<10)return;      // nothing to slide
+   if(t.scrollLeft>=room-4){t.scrollTo({left:0,behavior:"smooth"});return;}
+   var tl=t.getBoundingClientRect().left,next=null;
+   for(var i=0;i<t.children.length;i++){
+    var d=t.children[i].getBoundingClientRect().left-tl;
+    if(d>6){next=d;break;}
+   }
+   t.scrollTo({left: next===null?0:t.scrollLeft+next, behavior:"smooth"});
+  },4200);
+ }
+ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",go);else go();
+}catch(e){}})();`;
+
 export function generateStaticParams() { return LANGS.map((lang) => ({ lang })); }
 
 export async function generateMetadata({ params }) {
@@ -99,6 +136,7 @@ export default async function RootLayout({ children, params }) {
         <a className="skip" href="#main">Skip to content</a>
         {children}
         <script dangerouslySetInnerHTML={{ __html: REVEAL }} />
+        <script dangerouslySetInnerHTML={{ __html: FACTS_SLIDER }} />
       </body>
     </html>
   );
