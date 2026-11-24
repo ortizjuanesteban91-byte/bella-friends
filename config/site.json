@@ -247,8 +247,11 @@
       "_source": "AI PREVIEW IMAGE, generated 2026-11-24 on his word (\"put AI picture, make it look good\"). NOT a photo of Bella Friends. Replace with Brittany's real photo before this page is shown to a parent. No children are depicted, on purpose."
     },
     "team": {
-      "value": null,
-      "ask": "A photo of Brittany and, if they agree, the lead teachers."
+      "value": "https://d2zf8b1xpl1udp.cloudfront.net/aay7ztsqx3f2c1cuq4ra46cva4le.png",
+      "ask": "PHOTO OF BRITTANY — this is the slot it goes in. One clear photo of Brittany, landscape or square, and the lead teachers too if they agree to it. Right now the page shows a drawing, not a person, on purpose. This is the single strongest thing on the page for a parent deciding at 10pm: the face of the person who will meet them at the door.",
+      "_ai": true,
+      "_illustration": true,
+      "_source": "AI ILLUSTRATION placeholder, 2026-11-24, on his word (\"put an AI generated picture and put a comment under it so Alex can see\"). Deliberately a FLAT DRAWING, never a photorealistic face: putting a generated face where a real named person goes would be a fake photo of Brittany Marsh. It marks the slot and nothing else. Replace with the real photo of Brittany, and the lead teachers if they agree."
     }
   },
   "reviews": {

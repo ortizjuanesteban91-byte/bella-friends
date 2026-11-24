@@ -128,6 +128,15 @@ export default async function Home({ params }) {
               <div>
                 <PhotoSlot fact={site.photos.team} w={1000} h={1000} art={1}
                   label={t("Photo of Brittany, and the lead teachers if they agree.")} />
+                {/* The comment Alex reads, under the picture, where the real
+                    photo will go. Driven off the same fact, so it vanishes on
+                    its own the day Brittany's photo lands in site.json. */}
+                {site.photos.team?._illustration && (
+                  <p className="slotnote">
+                    <strong>{t("This is where Brittany's photo goes.")}</strong>{" "}
+                    {t("The drawing above is a placeholder marking the slot — it is not a photograph and it is not Brittany. We will not put a generated face on a real person. One clear photo of her, and the lead teachers if they agree, replaces it.")}
+                  </p>
+                )}
               </div>
               <div>
                 <h3>{site.owner.name}, <F fact={site.owner.role} /></h3>
