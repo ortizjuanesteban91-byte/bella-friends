@@ -856,3 +856,55 @@ img,svg{max-width:100%;height:auto}
   .stat b{ font-size:1.5rem }
   .stat i{ font-size:.8rem }
 }
+
+/* ============================================================
+   MOTION, BACK — AND THIS TIME IT CANNOT BLANK THE PAGE.
+   His word 2026-11-24: "where is the motion". I read his earlier
+   "no motion at all" as "remove it" and stripped it. Wrong read.
+
+   WHY THIS VERSION IS SAFE WHERE THE LAST ONE WAS NOT:
+   The last one hid everything with JS and revealed it with an
+   IntersectionObserver. When the observer did not fire, content
+   stayed invisible — that is how his page went blank twice.
+   This uses SCROLL-DRIVEN CSS (animation-timeline: view()). It is
+   position-driven: the browser computes the state from where the
+   element sits in the viewport, every frame. There is no event to
+   miss and no script to fail.
+   It is wrapped in @supports, so a browser without it NEVER HIDES
+   ANYTHING — it just shows the page, exactly as now.
+   ============================================================ */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    @keyframes bfRise{ from{ opacity:0; transform:translateY(26px) } to{ opacity:1; transform:none } }
+    @keyframes bfFadeIn{ from{ opacity:0 } to{ opacity:1 } }
+
+    #programs .card,
+    .why-grid .wcard,
+    #locations .card,
+    .facts li,
+    .faq__item,
+    main section .head{
+      animation:bfRise linear both;
+      animation-timeline:view();
+      animation-range:entry 5% entry 65%;
+    }
+    /* the stats band lifts as one piece, not four */
+    .stats__grid{
+      animation:bfRise linear both;
+      animation-timeline:view();
+      animation-range:entry 0% entry 55%;
+    }
+    .creds .cred{
+      animation:bfFadeIn linear both;
+      animation-timeline:view();
+      animation-range:entry 10% entry 70%;
+    }
+    /* a slow parallax drift on the hero photos as you scroll away */
+    .hero__bg{
+      animation:bfDrift linear both;
+      animation-timeline:view();
+      animation-range:exit 0% exit 100%;
+    }
+    @keyframes bfDrift{ from{ transform:translateY(0) } to{ transform:translateY(7%) } }
+  }
+}
