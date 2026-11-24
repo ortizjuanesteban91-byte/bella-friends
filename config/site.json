@@ -35,11 +35,11 @@
   "contact": {
     "phone": {
       "value": null,
-      "ask": "The phone number a parent should call, exactly as it should be printed."
+      "ask": "The phone number a parent should call, exactly as it should be printed. Until this arrives the top bar and the FAQ answer \"How do I reach a human?\" both show a placeholder, and the LocalBusiness data Google reads has no telephone."
     },
     "email": {
       "value": null,
-      "ask": "The email address enquiries should reach."
+      "ask": "The email address enquiries should reach. Until this arrives the tour form has nowhere of its own to send to and the FAQ answer \"How do I reach a human?\" stays unanswered."
     },
     "whatsapp": {
       "value": null,
@@ -109,7 +109,12 @@
         "ask": "If the Google Maps pin differs from the street address, paste the exact search text."
       },
       "_GEO_NOTE": "Latitude and longitude, 5+ decimal places, which Google RECOMMENDS. Not asked of the school and never guessed: it is read off the Google Business Profile once that exists. Shape: {\"lat\": 36.07264, \"lng\": -79.79198}",
-      "geo": null
+      "geo": null,
+      "googleProfile": {
+        "value": null,
+        "ask": "CLAIM THE GOOGLE BUSINESS PROFILE FOR THIS ADDRESS. Checked 2026-11-24: the Maps pin for 498 Bulldog Dr, Thomasville NC 27360 is correct, but Google labels it \"498 Bulldog Dr - Building\", not Bella Friends Preschool. A parent who taps \"Open in Google Maps\" sees an empty building. Claiming it is free, takes about ten minutes, and is the single strongest local-search and trust fix the school has. Paste the Google Business Profile link here once it is claimed.",
+        "_found": "Measured by opening the Maps link on 2026-11-24, not assumed."
+      }
     }
   ],
   "programs": [

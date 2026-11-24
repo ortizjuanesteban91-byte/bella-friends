@@ -167,6 +167,17 @@ export default async function Home({ params }) {
                       {t("Open in Google Maps")}
                     </a>
                   )}
+                  {/* Everything still owed for this campus, shown where it will
+                      go, so Alex and Brittany read it on the page itself and
+                      not in a separate list. Each one disappears the moment the
+                      fact lands in config/site.json. */}
+                  <div className="owed">
+                    <p className="owed__h">{t("Still needed for this page")}</p>
+                    <F fact={site.campuses[0].googleProfile} block />
+                    <F fact={site.contact.phone} block />
+                    <F fact={site.contact.email} block />
+                    <F fact={site.contact.hours} block />
+                  </div>
                 </article>
               ))}
               <article className="card">

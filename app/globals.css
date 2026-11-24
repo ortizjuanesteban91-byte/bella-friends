@@ -610,3 +610,13 @@ img,svg{max-width:100%;height:auto}
 @supports not ((backdrop-filter:blur(2px)) or (-webkit-backdrop-filter:blur(2px))){
   .hero__glass{ background:rgba(255,255,255,.95) }
 }
+
+/* What the school still owes us, printed on the page where the fact will
+   go. His word 2026-11-24: "listed it on the site the same way where you
+   put placeholder... so Alex can see it." */
+.owed{ display:grid; gap:8px; margin-top:14px; padding-top:14px; border-top:1px dashed var(--line) }
+.owed__h{
+  margin:0; font-size:.72rem; font-weight:800; letter-spacing:.13em;
+  text-transform:uppercase; color:var(--ink-soft);
+}
+.owed .ph{ align-items:flex-start }
