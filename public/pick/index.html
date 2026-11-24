@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en" data-pick>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Bella Friends — 8 Layouts</title>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  --bg:#14130f; --bg2:#1d1b16; --fg:#f6f1e6; --dim:#a79e8c; --line:#322e26;
+  --hot:#e4682f; --ok:#4fa07a; --warn:#e0a526;
+}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);
+ font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+ padding-left:max(14px,env(safe-area-inset-left,0px));
+ padding-right:max(14px,env(safe-area-inset-right,0px));
+ padding-block:18px 60px}
+.wrap{max-width:1040px;margin:0 auto}
+h1{font-size:1.45rem;margin:0 0 2px;letter-spacing:-.02em}
+.sub{color:var(--dim);font-size:.9rem;margin:0 0 16px}
+.tabs{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 14px}
+.tab{width:42px;height:42px;border-radius:12px;border:1px solid var(--line);
+ background:var(--bg2);color:var(--dim);font-size:1rem;font-weight:600;cursor:pointer}
+.tab[aria-selected=true]{background:var(--hot);border-color:var(--hot);color:#fff}
+.nm{font-size:1.1rem;font-weight:700;margin:0 0 4px}
+.wh{color:var(--dim);font-size:.9rem;margin:0 0 16px;max-width:62ch}
+.wh b{color:var(--fg)}
+.stage{display:flex;gap:22px;flex-wrap:wrap;align-items:flex-start}
+.cap{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin:0 0 7px}
+.phone{width:330px;max-width:100%;height:600px;overflow-y:auto;overflow-x:hidden;
+ background:#fffdf8;color:#22201c;border:8px solid #2b2721;border-radius:30px;
+ font-size:13.5px;line-height:1.5}
+.phone::-webkit-scrollbar{width:0}
+.pick{margin-top:20px;background:var(--hot);color:#fff;border:0;border-radius:999px;
+ padding:14px 26px;font-size:1rem;font-weight:700;cursor:pointer}
+.pick.done{background:var(--ok)}
+.note{margin-top:12px;color:var(--dim);font-size:.9rem}
+.note b{color:var(--fg)}
+.miss{margin-top:26px;border-top:1px solid var(--line);padding-top:14px;color:var(--dim);font-size:.85rem}
+.miss b{color:var(--warn)}
+
+/* ---------- inside the phone ---------- */
+.p{padding:14px}
+.bar{display:flex;align-items:center;justify-content:space-between;
+ padding:11px 14px;border-bottom:1px solid #e8dfcc;background:#fff}
+.lg{font-weight:800;letter-spacing:-.02em;font-size:.95rem}
+.lg span{color:#d8562a}
+.bg{font-size:1.2rem;color:#8a7c60}
+.burger{font-size:1.1rem;color:#5d574e}
+.ph{background:#f3ead6;border:1px dashed #cdbf9f;border-radius:12px;
+ display:flex;align-items:center;justify-content:center;text-align:center;
+ color:#8a7c60;font-size:.72rem;padding:8px}
+.h1{font-size:1.5rem;line-height:1.1;letter-spacing:-.02em;margin:0 0 8px;font-weight:800}
+.h1s{font-size:1.18rem}
+.lead{color:#5d574e;margin:0 0 12px}
+.btn{display:block;text-align:center;background:#d8562a;color:#fff;font-weight:700;
+ border-radius:999px;padding:12px;margin:0 0 8px;text-decoration:none}
+.btn2{display:block;text-align:center;border:1.5px solid #22201c;color:#22201c;
+ font-weight:600;border-radius:999px;padding:11px;text-decoration:none}
+.badges{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 12px}
+.bd{background:#fff6e6;border:1px solid #e8dfcc;border-radius:999px;
+ padding:5px 10px;font-size:.72rem;font-weight:600}
+.bd.g{background:#e9f3ec;border-color:#cfe3d6;color:#1f6b4a}
+.bd.todo{background:#fdf2e2;border-color:#f0d9a8;color:#8a6a12}
+.sec{padding:16px 14px;border-top:1px solid #efe7d4}
+.sec h3{font-size:.76rem;letter-spacing:.13em;text-transform:uppercase;
+ color:#8a7c60;margin:0 0 10px;font-weight:700}
+.room{display:flex;gap:10px;align-items:center;padding:9px 0;border-bottom:1px solid #f1ead9}
+.room:last-child{border:0}
+.room .ic{width:38px;height:38px;border-radius:11px;background:#fff6e6;
+ display:flex;align-items:center;justify-content:center;font-size:1.05rem;flex:0 0 auto}
+.room b{display:block;font-size:.92rem}
+.room i{display:block;font-style:normal;color:#8a7c60;font-size:.76rem}
+.room .go{margin-left:auto;color:#d8562a;font-weight:700;font-size:.8rem}
+.cards{display:grid;gap:9px}
+.card{border:1px solid #e8dfcc;border-radius:14px;padding:11px;background:#fff}
+.card b{display:block;margin-bottom:2px}
+.card i{font-style:normal;color:#8a7c60;font-size:.78rem}
+.q{border-bottom:1px solid #f1ead9;padding:11px 0}
+.q:last-child{border:0}
+.q b{display:block;font-size:.93rem;margin-bottom:3px}
+.q span{color:#5d574e;font-size:.84rem}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 10px}
+.chip{border:1.5px solid #e8dfcc;border-radius:999px;padding:7px 12px;font-size:.8rem;background:#fff}
+.chip.on{border-color:#d8562a;background:#d8562a;color:#fff;font-weight:700}
+.fld{border:1px solid #e8dfcc;border-radius:10px;padding:10px;margin:0 0 7px;
+ color:#a79e8c;background:#fff;font-size:.85rem}
+.tl{position:relative;padding-left:22px}
+.tl::before{content:"";position:absolute;left:6px;top:4px;bottom:4px;width:2px;background:#e8dfcc}
+.ev{position:relative;padding:0 0 13px}
+.ev::before{content:"";position:absolute;left:-19px;top:5px;width:9px;height:9px;
+ border-radius:50%;background:#d8562a}
+.ev b{display:block;font-size:.9rem}
+.ev i{font-style:normal;color:#8a7c60;font-size:.78rem}
+.tm{font-size:.72rem;font-weight:700;color:#d8562a;letter-spacing:.04em}
+.deck{display:flex;gap:9px;overflow-x:auto;padding:0 0 6px;margin:0 0 4px}
+.dc{flex:0 0 150px;border:1px solid #e8dfcc;border-radius:14px;background:#fff;overflow:hidden}
+.dc .ph{border:0;border-radius:0;height:86px}
+.dc .in{padding:9px}
+.dc b{display:block;font-size:.88rem}
+.dc i{font-style:normal;color:#8a7c60;font-size:.74rem}
+.swipe{text-align:center;color:#8a7c60;font-size:.72rem;margin:0 0 10px}
+.ck{display:flex;gap:9px;align-items:flex-start;padding:10px 0;border-bottom:1px solid #f1ead9}
+.ck:last-child{border:0}
+.ck .m{width:22px;height:22px;border-radius:6px;background:#e9f3ec;color:#1f6b4a;
+ display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.8rem;flex:0 0 auto}
+.ck .m.t{background:#fdf2e2;color:#8a6a12}
+.ck b{display:block;font-size:.89rem}
+.ck i{font-style:normal;color:#8a7c60;font-size:.77rem}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.grid2 .ph{height:96px}
+.grid2 .ph.wide{grid-column:1/-1;height:110px}
+.quote{border-left:3px solid #d8562a;padding:2px 0 2px 11px;margin:0 0 11px;
+ color:#5d574e;font-size:.86rem}
+.owner{display:flex;gap:11px;align-items:center;margin:0 0 12px}
+.owner .ph{width:72px;height:72px;border-radius:50%;flex:0 0 auto;font-size:.62rem}
+.owner b{display:block;font-size:1rem}
+.owner i{font-style:normal;color:#8a7c60;font-size:.78rem}
+.sticky{position:sticky;bottom:0;background:#fff;border-top:1px solid #e8dfcc;padding:10px 14px}
+.hl{background:#22201c;color:#fffdf8;padding:16px 14px}
+.hl .h1{color:#fffdf8}
+.hl .lead{color:#c9c0b0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid #efe7d4}
+.two>div{padding:13px 11px}
+.two>div:first-child{border-right:1px solid #efe7d4}
+.two b{display:block;font-size:.8rem;margin-bottom:5px}
+.two i{font-style:normal;font-size:.75rem;color:#8a7c60}
+@media (max-width:420px){.phone{height:540px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Bella Friends — 8 home layouts</h1>
+  <p class="sub">Tap a number. Each one is a <b>different shape of page</b>, not a different font. Then tell me the number.</p>
+  <div class="tabs" id="tabs" role="tablist"></div>
+  <p class="nm" id="nm"></p>
+  <p class="wh" id="wh"></p>
+  <div class="stage">
+    <div><p class="cap">Phone — what a parent sees first</p><div class="phone" id="stage"></div></div>
+  </div>
+  <button class="pick" id="pick">Pick this one</button>
+  <p class="note" id="note">Nothing here is live. Pick a number and I build that one for real on this same link.</p>
+  <p class="miss"><b>Still waiting on Brittany:</b> the NC licence number, opening hours, phone, email, address, tuition answer, the room photos, and the staff ratios. Every dashed box and every amber tag above is one of those. The page shape is finished without them.</p>
+</div>
+<script>
+var PH=function(h,t){return '<div class="ph" style="height:'+h+'px">'+t+'</div>'};
+var BAR=function(){return '<div class="bar"><span class="lg"><span>BELLA</span> FRIENDS</span><span class="burger">☰</span></div>'};
+var TRUST=function(){return '<div class="badges"><span class="bd g">NC licensed</span><span class="bd todo">Licence # — to add</span><span class="bd todo">Hours — to add</span></div>'};
+var ROOMS=function(go){return ''+
+ room('👶','Infants','6 weeks – 18 months',go)+
+ room('🧒','Toddlers','18 months – 3 years',go)+
+ room('🎨','Preschool','3 – 4 years',go)+
+ room('📚','Pre-K','4 – 5 years',go)+
+ room('🎒','After School','5 – 12 years',go)};
+function room(i,n,a,go){return '<div class="room"><span class="ic">'+i+'</span><span><b>'+n+'</b><i>'+a+'</i></span>'+(go?'<span class="go">'+go+'</span>':'')+'</div>'}
+
+var L=[
+{n:"1 · Classic Trust",
+ w:"<b>The safe one. What a licensed preschool normally looks like.</b> Photo, then the licence, then the five rooms, then book a tour. Nothing surprises a parent. Nothing stands out either.",
+ v:function(){return BAR()+'<div class="p">'+PH(140,'HERO PHOTO<br>real children, real room, 1600px wide')+
+ '<div style="height:12px"></div><p class="h1">A licensed preschool in North Carolina</p>'+
+ '<p class="lead">Tagline — to add, in Brittany\'s own words.</p>'+TRUST()+
+ '<a class="btn">Book a tour</a><a class="btn2">Call us</a></div>'+
+ '<div class="sec"><h3>Our rooms</h3>'+ROOMS('View')+'</div>'+
+ '<div class="sec"><h3>Why parents choose us</h3><div class="cards">'+
+ '<div class="card"><b>NC licensed</b><i>Licence number to add</i></div>'+
+ '<div class="card"><b>Ratios</b><i>Per age group — to add</i></div>'+
+ '<div class="card"><b>CPR &amp; First Aid</b><i>To confirm</i></div></div></div>'}},
+
+{n:"2 · Answer First",
+ w:"<b>No hero photo at the top at all.</b> It opens with the six questions a parent actually types at 10pm, each answered in one line. The photo comes after they trust you. This is the one that beats a big chain site, because a chain never answers first.",
+ v:function(){return BAR()+'<div class="p">'+
+ '<p class="h1 h1s">Everything a parent asks, answered before you call</p>'+
+ '<div class="q"><b>Are you licensed?</b><span>Yes — North Carolina DCDEE. Licence # to add.</span></div>'+
+ '<div class="q"><b>Do you have a space for my child\'s age?</b><span>Five rooms, 6 weeks to 12 years. Openings to add.</span></div>'+
+ '<div class="q"><b>How many children per teacher?</b><span>Ratios to add — per room, as actually staffed.</span></div>'+
+ '<div class="q"><b>What does it cost?</b><span>Brittany\'s answer to add. Prices are off until she says otherwise.</span></div>'+
+ '<div class="q"><b>What are your hours?</b><span>To add.</span></div>'+
+ '<div class="q"><b>Can I come see it?</b><span>Yes. Tour times to add.</span></div>'+
+ '</div><div class="sticky"><a class="btn" style="margin:0">Book a tour</a></div>'+
+ '<div class="sec"><h3>Then the photos</h3>'+PH(120,'HERO PHOTO — further down on purpose')+'</div>'}},
+
+{n:"3 · Tour Booker",
+ w:"<b>The form is the first screen.</b> Day and time chips above the fold, nothing to scroll past. Built for one job only: get the visit booked. Fewest clicks of all eight, thinnest on trust.",
+ v:function(){return BAR()+'<div class="hl"><p class="h1">Come see the rooms</p>'+
+ '<p class="lead">Pick a time. Brittany confirms the same day.</p></div><div class="p">'+
+ '<div class="chips"><span class="chip on">Tue</span><span class="chip">Wed</span><span class="chip">Thu</span><span class="chip">Fri</span></div>'+
+ '<div class="chips"><span class="chip">9:00</span><span class="chip on">10:30</span><span class="chip">2:00</span><span class="chip">4:00</span></div>'+
+ '<p style="font-size:.76rem;color:#8a6a12;background:#fdf2e2;border:1px solid #f0d9a8;border-radius:9px;padding:7px 9px;margin:0 0 10px">Real tour days and times — to add</p>'+
+ '<div class="fld">Your name</div><div class="fld">Email</div><div class="fld">Phone</div>'+
+ '<div class="fld">Child\'s age</div><div class="fld">Month you need care</div>'+
+ '<a class="btn">Book this time</a>'+TRUST()+'</div>'+
+ '<div class="sec"><h3>While you are here</h3>'+ROOMS('')+'</div>'}},
+
+{n:"4 · Room by Room",
+ w:"<b>The five rooms ARE the page.</b> A swipeable deck across the top — age, ratio, photo, whether it has a place open. A parent with a 2-year-old sees her room immediately instead of scrolling a general page.",
+ v:function(){return BAR()+'<div class="p">'+
+ '<p class="h1 h1s">Find your child\'s room</p>'+
+ '<div class="deck">'+
+ '<div class="dc">'+PH(86,'INFANT ROOM')+'<div class="in"><b>Infants</b><i>6 wks – 18 mo</i><i style="color:#8a6a12">Openings — to add</i></div></div>'+
+ '<div class="dc">'+PH(86,'TODDLER ROOM')+'<div class="in"><b>Toddlers</b><i>18 mo – 3 yrs</i><i style="color:#8a6a12">Openings — to add</i></div></div>'+
+ '<div class="dc">'+PH(86,'PRESCHOOL ROOM')+'<div class="in"><b>Preschool</b><i>3 – 4 yrs</i><i style="color:#8a6a12">Openings — to add</i></div></div>'+
+ '</div><p class="swipe">‹ swipe · 5 rooms ›</p>'+TRUST()+
+ '<a class="btn">Book a tour of this room</a></div>'+
+ '<div class="sec"><h3>In every room</h3><div class="cards">'+
+ '<div class="card"><b>Teacher to child</b><i>Ratio — to add</i></div>'+
+ '<div class="card"><b>A day in here</b><i>Daily rhythm — to add</i></div></div></div>'}},
+
+{n:"5 · One Day Here",
+ w:"<b>The page is her child\'s day, 6:30am to 6:00pm.</b> Drop-off, breakfast, circle, outside, nap, pickup. It answers the question a parent cannot ask out loud: what is she actually doing all day. Nobody local does this.",
+ v:function(){return BAR()+'<div class="p">'+
+ '<p class="h1 h1s">A day at Bella Friends</p>'+
+ '<p class="lead">Hours to add — this is the shape of the day.</p>'+
+ '<div class="tl">'+
+ '<div class="ev"><span class="tm">DROP-OFF</span><b>Hand-off at the door</b><i>Same teacher every morning</i></div>'+
+ '<div class="ev"><span class="tm">MORNING</span><b>Breakfast, then circle time</b><i>Menu — to add</i></div>'+
+ '<div class="ev"><span class="tm">MID</span><b>Outside on the playground</b><i>'+'Photo of the playground — to add</i></div>'+
+ '<div class="ev"><span class="tm">AFTER LUNCH</span><b>Quiet time and nap</b><i>Cots, own blanket</i></div>'+
+ '<div class="ev"><span class="tm">AFTERNOON</span><b>Learning centres, free play</b><i>Curriculum name — to add</i></div>'+
+ '<div class="ev"><span class="tm">PICKUP</span><b>What she did today, in writing</b><i>How you get the update — to add</i></div>'+
+ '</div>'+TRUST()+'<a class="btn">Come see a real day</a></div>'}},
+
+{n:"6 · Meet Brittany",
+ w:"<b>Owner-led. Her face and her words first</b>, then the school through her. Trust by person instead of trust by badge — the strongest play for a small school against a franchise, and the one that needs her photo and a paragraph from her.",
+ v:function(){return BAR()+'<div class="p">'+
+ '<div class="owner">'+PH(72,'BRITTANY')+'<span><b>Brittany Marsh</b><i>Owner — title to confirm</i></span></div>'+
+ '<p class="quote">Her own words about why she opened the school — to add. 3–4 sentences.</p>'+
+ '<p class="h1 h1s">A small school, run by the person you meet at the door</p>'+TRUST()+
+ '<a class="btn">Book a tour with Brittany</a><a class="btn2">Text her</a></div>'+
+ '<div class="sec"><h3>Her five rooms</h3>'+ROOMS('')+'</div>'+
+ '<div class="sec"><h3>Her team</h3>'+PH(110,'BRITTANY + LEAD TEACHERS — to add')+
+ '<p style="margin:9px 0 0;font-size:.8rem;color:#8a7c60">Credentials — to add. Only what she can show on paper.</p></div>'}},
+
+{n:"7 · The Parent's Checklist",
+ w:"<b>The page is the checklist a careful parent is already keeping</b> — licensed, ratios, CPR, background checks, cameras, meals, hours — each line ticked and tappable to the proof. It turns your paperwork into the sales pitch. It also shows every gap, so it only ships once she fills them.",
+ v:function(){return BAR()+'<div class="p">'+
+ '<p class="h1 h1s">Check us the way you would check anyone</p>'+
+ '<p class="lead">Seven things worth verifying. Tap any one for the proof.</p>'+
+ '<div class="ck"><span class="m">✓</span><span><b>State licensed</b><i>North Carolina DCDEE · licence # to add</i></span></div>'+
+ '<div class="ck"><span class="m t">!</span><span><b>Teacher-to-child ratio</b><i>Per room — to add</i></span></div>'+
+ '<div class="ck"><span class="m t">!</span><span><b>CPR &amp; First Aid</b><i>To confirm</i></span></div>'+
+ '<div class="ck"><span class="m t">!</span><span><b>Background checks</b><i>To confirm</i></span></div>'+
+ '<div class="ck"><span class="m t">!</span><span><b>Security at the door</b><i>To confirm</i></span></div>'+
+ '<div class="ck"><span class="m t">!</span><span><b>Meals</b><i>Provided or packed — to add</i></span></div>'+
+ '<div class="ck"><span class="m t">!</span><span><b>Hours</b><i>To add</i></span></div>'+
+ '<a class="btn" style="margin-top:13px">Book a tour and check in person</a></div>'+
+ '<div class="sec"><h3>Our rooms</h3>'+ROOMS('')+'</div>'}},
+
+{n:"8 · Photo Wall",
+ w:"<b>Almost no words at the top — the rooms do the talking.</b> A wall of real photos, text only when she taps. The best-looking of the eight and the most dependent on her: with placeholder boxes it is the weakest, with eight real photos it is the strongest.",
+ v:function(){return BAR()+
+ '<div class="grid2" style="padding:11px">'+
+ '<div class="ph wide" style="height:110px">HERO — the room</div>'+
+ PH(96,'PLAYGROUND')+PH(96,'INFANT ROOM')+PH(96,'ART TABLE')+PH(96,'NAP ROOM')+
+ '<div class="ph wide" style="height:96px">BRITTANY + TEAM</div></div>'+
+ '<div class="p"><p class="h1 h1s">Bella Friends Preschool</p>'+TRUST()+
+ '<a class="btn">Book a tour</a></div>'+
+ '<div class="two"><div><b>Five rooms</b><i>6 weeks to 12 years</i></div>'+
+ '<div><b>Licensed in NC</b><i>Licence # to add</i></div></div>'+
+ '<div class="sec"><h3>Tap any room</h3>'+ROOMS('Open')+'</div>'}}
+];
+
+var now=0,T=document.getElementById('tabs'),S=document.getElementById('stage'),
+ N=document.getElementById('nm'),W=document.getElementById('wh'),
+ P=document.getElementById('pick'),NT=document.getElementById('note');
+
+L.forEach(function(l,i){
+  var b=document.createElement('button');
+  b.className='tab';b.textContent=i+1;b.setAttribute('role','tab');
+  b.onclick=function(){show(i)};T.appendChild(b);
+});
+function show(i){
+  now=i;var l=L[i];
+  for(var j=0;j<T.children.length;j++)T.children[j].setAttribute('aria-selected',j===i?'true':'false');
+  N.textContent=l.n;W.innerHTML=l.w;S.innerHTML=l.v();S.scrollTop=0;
+  P.textContent='Pick '+(i+1);P.className='pick';
+}
+P.onclick=function(){
+  var n=now+1;try{localStorage.setItem('bfpick',n)}catch(e){}
+  P.textContent='✓ Picked '+n;P.className='pick done';
+  NT.innerHTML='<b>Now tell me: “'+n+'”.</b> I build that one for real on this same link, then you send it to Alex.';
+};
+show(0);
+try{var p=localStorage.getItem('bfpick');if(p)NT.innerHTML='You picked <b>'+p+'</b> last time.'}catch(e){}
+</script>
+</body>
+</html>
