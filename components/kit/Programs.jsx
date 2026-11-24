@@ -22,7 +22,7 @@ export default function Programs({ lang, t, qs = "", heading = true }) {
         <div className="cards">
           {site.programs.map((p, i) => (
             <article className="card" key={p.slug}>
-              <PhotoSlot fact={site.photos.rooms} w={1200} h={760} art={i}
+              <PhotoSlot fact={p.photo || site.photos.rooms} w={1200} h={760} art={i}
                 label={t("Photo of the {name} room.", { name: p.name })} />
               <h3 style={{ marginTop: 14 }}>{t(p.name)}</h3>
               <p className="eyebrow" style={{ margin: "0 0 .5em" }}>{p.ages}</p>

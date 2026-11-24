@@ -11,12 +11,14 @@ import { filled, val } from "@/lib/site";
  */
 export default function PhotoSlot({ fact, w = 1200, h = 800, alt = "", label, priority = false, art = 0 }) {
   const src = filled(fact) ? val(fact) : null;
+  const isAi = Boolean(fact && fact._ai);
   const ratio = `${w} / ${h}`;
   if (src) {
     return (
-      <span className="photo" style={{ aspectRatio: ratio }}>
+      <span className="photo" style={{ aspectRatio: ratio }} data-ai={isAi ? "1" : undefined}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={src} alt={alt} width={w} height={h} loading={priority ? "eager" : "lazy"} decoding="async" />
+        {isAi && <span className="photo__ai">AI preview — not the real room</span>}
       </span>
     );
   }

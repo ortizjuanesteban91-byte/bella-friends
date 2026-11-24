@@ -124,6 +124,12 @@
       "capacity": {
         "value": null,
         "ask": "How many infant places the school has, if you want it shown."
+      },
+      "photo": {
+        "value": "https://d2zf8b1xpl1udp.cloudfront.net/iyny5ntjdmz15flcua1cscexwkfz.png",
+        "ask": "Real photo of this room, landscape, at least 1200px wide.",
+        "_ai": true,
+        "_source": "AI PREVIEW IMAGE, generated 2026-11-24 on his word (\"put AI picture, make it look good\"). NOT a photo of Bella Friends. Replace with Brittany's real photo before this page is shown to a parent. No children are depicted, on purpose."
       }
     },
     {
@@ -137,6 +143,12 @@
       "capacity": {
         "value": null,
         "ask": "Toddler places, optional."
+      },
+      "photo": {
+        "value": "https://d2zf8b1xpl1udp.cloudfront.net/v5q1id3ft8x2b98rvkwzpl8u85s4.png",
+        "ask": "Real photo of this room, landscape, at least 1200px wide.",
+        "_ai": true,
+        "_source": "AI PREVIEW IMAGE, generated 2026-11-24 on his word (\"put AI picture, make it look good\"). NOT a photo of Bella Friends. Replace with Brittany's real photo before this page is shown to a parent. No children are depicted, on purpose."
       }
     },
     {
@@ -150,6 +162,12 @@
       "capacity": {
         "value": null,
         "ask": "Preschool places, optional."
+      },
+      "photo": {
+        "value": "https://d2zf8b1xpl1udp.cloudfront.net/la4gdtix2ay54zb9kivvd1c1onjn.png",
+        "ask": "Real photo of this room, landscape, at least 1200px wide.",
+        "_ai": true,
+        "_source": "AI PREVIEW IMAGE, generated 2026-11-24 on his word (\"put AI picture, make it look good\"). NOT a photo of Bella Friends. Replace with Brittany's real photo before this page is shown to a parent. No children are depicted, on purpose."
       }
     },
     {
@@ -163,6 +181,12 @@
       "capacity": {
         "value": null,
         "ask": "Pre-K places, optional."
+      },
+      "photo": {
+        "value": "https://d2zf8b1xpl1udp.cloudfront.net/8t4i8oygro3ikzwkuosn25u86dw6.png",
+        "ask": "Real photo of this room, landscape, at least 1200px wide.",
+        "_ai": true,
+        "_source": "AI PREVIEW IMAGE, generated 2026-11-24 on his word (\"put AI picture, make it look good\"). NOT a photo of Bella Friends. Replace with Brittany's real photo before this page is shown to a parent. No children are depicted, on purpose."
       }
     },
     {
@@ -176,6 +200,12 @@
       "capacity": {
         "value": null,
         "ask": "After-school places, optional."
+      },
+      "photo": {
+        "value": "https://d2zf8b1xpl1udp.cloudfront.net/8t4i8oygro3ikzwkuosn25u86dw6.png",
+        "ask": "Real photo of this room, landscape, at least 1200px wide.",
+        "_ai": true,
+        "_source": "AI PREVIEW IMAGE, generated 2026-11-24 on his word (\"put AI picture, make it look good\"). NOT a photo of Bella Friends. Replace with Brittany's real photo before this page is shown to a parent. No children are depicted, on purpose."
       }
     }
   ],
@@ -194,16 +224,22 @@
   "photos": {
     "_NOTE": "Every slot renders a sized, labelled placeholder until a real file arrives. We never put a stock photo on a school page and let a parent think it is their child's classroom.",
     "hero": {
-      "value": null,
-      "ask": "One wide photo for the top of the page: real children in the real room, landscape, at least 1600px wide."
+      "value": "https://d2zf8b1xpl1udp.cloudfront.net/la4gdtix2ay54zb9kivvd1c1onjn.png",
+      "ask": "One wide photo for the top of the page: real children in the real room, landscape, at least 1600px wide.",
+      "_ai": true,
+      "_source": "AI PREVIEW IMAGE, generated 2026-11-24 on his word (\"put AI picture, make it look good\"). NOT a photo of Bella Friends. Replace with Brittany's real photo before this page is shown to a parent. No children are depicted, on purpose."
     },
     "rooms": {
-      "value": null,
-      "ask": "One photo per program room (Infants, Toddlers, Preschool, Pre-K, After School). Landscape, at least 1200px wide."
+      "value": "https://d2zf8b1xpl1udp.cloudfront.net/v5q1id3ft8x2b98rvkwzpl8u85s4.png",
+      "ask": "One photo per program room (Infants, Toddlers, Preschool, Pre-K, After School). Landscape, at least 1200px wide.",
+      "_ai": true,
+      "_source": "AI PREVIEW IMAGE, generated 2026-11-24 on his word (\"put AI picture, make it look good\"). NOT a photo of Bella Friends. Replace with Brittany's real photo before this page is shown to a parent. No children are depicted, on purpose."
     },
     "outside": {
-      "value": null,
-      "ask": "One photo of the playground or the entrance a parent will recognise on arrival."
+      "value": "https://d2zf8b1xpl1udp.cloudfront.net/1ysbh5sylrqn2jktgi2hfpzh92op.png",
+      "ask": "One photo of the playground or the entrance a parent will recognise on arrival.",
+      "_ai": true,
+      "_source": "AI PREVIEW IMAGE, generated 2026-11-24 on his word (\"put AI picture, make it look good\"). NOT a photo of Bella Friends. Replace with Brittany's real photo before this page is shown to a parent. No children are depicted, on purpose."
     },
     "team": {
       "value": null,

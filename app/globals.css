@@ -378,3 +378,82 @@ img,svg{max-width:100%;height:auto}
 }
 .faq__item[open] summary::after{content:"−"}
 .faq__item p{margin:0 0 16px;max-width:none}
+
+/* ============================================================
+   MORE COLOUR. His word 2026-11-24: "more colorful, more bright.
+   School kid stuff." Bright Academy ran on ONE accent; a preschool
+   should not. Five brights, used as structure (card tops, stat
+   numbers, section tints) so it reads cheerful, not noisy.
+   ============================================================ */
+:root{
+  --c1:#f2731d;  /* orange  */
+  --c2:#17a2a2;  /* teal    */
+  --c3:#4fa83d;  /* green   */
+  --c4:#2f6fe4;  /* blue    */
+  --c5:#e8468a;  /* pink    */
+  --c6:#f6b93b;  /* yellow  */
+}
+/* cards get a colour each, in order, and keep it on every screen */
+.cards > .card:nth-child(5n+1), .why-grid > .wcard:nth-child(5n+1){ --c:var(--c1) }
+.cards > .card:nth-child(5n+2), .why-grid > .wcard:nth-child(5n+2){ --c:var(--c2) }
+.cards > .card:nth-child(5n+3), .why-grid > .wcard:nth-child(5n+3){ --c:var(--c3) }
+.cards > .card:nth-child(5n+4), .why-grid > .wcard:nth-child(5n+4){ --c:var(--c4) }
+.cards > .card:nth-child(5n+5), .why-grid > .wcard:nth-child(5n+5){ --c:var(--c5) }
+.cards > .card, .why-grid > .wcard{ border-top:4px solid var(--c,var(--c1)) }
+.cards > .card h3{ color:var(--c,var(--c1)) }
+.why-grid > .wcard .num{
+  background:color-mix(in srgb,var(--c,var(--c1)) 15%,transparent);
+  color:var(--c,var(--c1));
+}
+/* the stats band stops being four identical navy numbers */
+.stats__grid .stat:nth-child(1) b{ color:var(--c1) }
+.stats__grid .stat:nth-child(2) b{ color:var(--c2) }
+.stats__grid .stat:nth-child(3) b{ color:var(--c3) }
+.stats__grid .stat:nth-child(4) b{ color:var(--c4) }
+.stats__grid .stat{ border-top:4px solid transparent }
+.stats__grid .stat:nth-child(1){ border-top-color:var(--c1) }
+.stats__grid .stat:nth-child(2){ border-top-color:var(--c2) }
+.stats__grid .stat:nth-child(3){ border-top-color:var(--c3) }
+.stats__grid .stat:nth-child(4){ border-top-color:var(--c4) }
+/* creds strip: a colour per credential */
+.creds .cred:nth-child(1){ color:var(--c3) }
+.creds .cred:nth-child(2){ color:var(--c1) }
+.creds .cred:nth-child(3){ color:var(--c4) }
+.creds .cred:nth-child(4){ color:var(--c2) }
+/* facts band, one tint each instead of five grey boxes */
+.facts li:nth-child(5n+1){ background:#fff4ec; border-color:#ffd9bf }
+.facts li:nth-child(5n+2){ background:#e9f7f7; border-color:#bfe6e6 }
+.facts li:nth-child(5n+3){ background:#eef8ea; border-color:#cbe8c1 }
+.facts li:nth-child(5n+4){ background:#eaf1fd; border-color:#c7d9f7 }
+.facts li:nth-child(5n+5){ background:#fdeef5; border-color:#f6ccdf }
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]) .facts li{ background:var(--paper-2)!important; border-color:var(--line)!important }
+}
+:root[data-theme="dark"] .facts li{ background:var(--paper-2)!important; border-color:var(--line)!important }
+/* a brighter hero glow, and a confetti rule under the eyebrow */
+.hero{
+  background:
+    radial-gradient(900px 440px at 8% -12%,rgba(246,185,59,.30),transparent 60%),
+    radial-gradient(760px 420px at 52% -14%,rgba(242,115,29,.26),transparent 58%),
+    radial-gradient(820px 460px at 96% 6%,rgba(23,162,162,.26),transparent 58%),
+    linear-gradient(165deg,var(--navy) 0%,var(--navy-2) 100%);
+}
+.hero__ticks li:nth-child(1) .tick{ background:var(--c6); color:#3a2a00 }
+.hero__ticks li:nth-child(2) .tick{ background:var(--c2) }
+.hero__ticks li:nth-child(3) .tick{ background:var(--c3) }
+/* FAQ: a colour down the side of each row */
+.faq__item:nth-child(5n+1){ border-left:4px solid var(--c1) }
+.faq__item:nth-child(5n+2){ border-left:4px solid var(--c2) }
+.faq__item:nth-child(5n+3){ border-left:4px solid var(--c3) }
+.faq__item:nth-child(5n+4){ border-left:4px solid var(--c4) }
+.faq__item:nth-child(5n+5){ border-left:4px solid var(--c5) }
+
+/* ---- AI preview badge: it must never pass for her real room ---- */
+.photo{position:relative}
+.photo__ai{
+  position:absolute;left:8px;bottom:8px;z-index:2;
+  background:rgba(13,20,36,.82);color:#fff;
+  border-radius:999px;padding:.3em .75em;
+  font-size:.68rem;font-weight:700;letter-spacing:.04em;
+  backdrop-filter:blur(4px);
+}
