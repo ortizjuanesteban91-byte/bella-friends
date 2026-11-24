@@ -43,22 +43,11 @@ body{margin:0}
   --shadow:0 1px 2px rgba(16,28,56,.04),0 14px 40px -24px rgba(16,28,56,.35);
   --shadow-lg:0 2px 4px rgba(16,28,56,.05),0 30px 70px -34px rgba(16,28,56,.45);
 }
-@media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]){
-    --paper:#0d1424; --paper-2:#121b2f; --line:#24314c;
-    --ink:#eef2f9; --ink-soft:#a3b0c6;
-    --navy:#0a1020; --navy-2:#111b33;
-    --brand-tint:#2a1a0e;
-    color-scheme:dark;
-  }
-}
-:root[data-theme="dark"]{
-  --paper:#0d1424; --paper-2:#121b2f; --line:#24314c;
-  --ink:#eef2f9; --ink-soft:#a3b0c6;
-  --navy:#0a1020; --navy-2:#111b33;
-  --brand-tint:#2a1a0e;
-  color-scheme:dark;
-}
+/* NO DARK MODE, ON PURPOSE. His word 2026-11-24: "it's too dark. I want
+   it bright." His phone is set to dark, so the whole site was rendering
+   dark for him. A preschool page is bright for everyone, on every device.
+   color-scheme is pinned light so form controls and scrollbars follow. */
+:root{ color-scheme:light }
 
 body{
   background:var(--paper);color:var(--ink);
@@ -306,8 +295,6 @@ img,svg{max-width:100%;height:auto}
    dark-on-dark and the tagline print "PLACEHOLDEROne line...".
    ============================================================ */
 :root{ --accent:#f6b93b; --accent-2:#3b82f6; }
-@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){ --accent:#e0a526; --accent-2:#60a5fa } }
-:root[data-theme="dark"]{ --accent:#e0a526; --accent-2:#60a5fa }
 
 /* ---- sized photo slots (CLS stays 0 before a photo exists) ---- */
 .photo{
@@ -426,10 +413,6 @@ img,svg{max-width:100%;height:auto}
 .facts li:nth-child(5n+3){ background:#eef8ea; border-color:#cbe8c1 }
 .facts li:nth-child(5n+4){ background:#eaf1fd; border-color:#c7d9f7 }
 .facts li:nth-child(5n+5){ background:#fdeef5; border-color:#f6ccdf }
-@media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]) .facts li{ background:var(--paper-2)!important; border-color:var(--line)!important }
-}
-:root[data-theme="dark"] .facts li{ background:var(--paper-2)!important; border-color:var(--line)!important }
 /* a brighter hero glow, and a confetti rule under the eyebrow */
 .hero{
   background:
@@ -456,4 +439,89 @@ img,svg{max-width:100%;height:auto}
   border-radius:999px;padding:.3em .75em;
   font-size:.68rem;font-weight:700;letter-spacing:.04em;
   backdrop-filter:blur(4px);
+}
+
+/* ============================================================
+   BRIGHT. His word 2026-11-24: "it's too dark. I want it bright.
+   This blue dark lightening up."
+   The dark navy hero is gone. The page is light from top to
+   bottom; the blue survives as a BRIGHT blue, not a night one.
+   ============================================================ */
+:root{
+  --sky:#eaf4ff;
+  --sky-2:#dff0ff;
+  --blue:#2f6fe4;      /* kept for text and buttons, where it must carry contrast */
+  --blue-bright:#4aa3f0;
+}
+
+/* --- topbar: bright blue strip instead of near-black --- */
+.topbar{ background:var(--blue); color:#eaf2ff }
+.topbar a{ color:#fff }
+
+/* --- HERO: light, sunny, colourful. Ink text, not white. --- */
+.hero{
+  background:
+    radial-gradient(760px 420px at 6% -16%, rgba(246,185,59,.42), transparent 62%),
+    radial-gradient(700px 400px at 50% -18%, rgba(74,163,240,.34), transparent 60%),
+    radial-gradient(760px 430px at 96% -6%, rgba(23,162,162,.30), transparent 60%),
+    linear-gradient(180deg,#ffffff 0%, var(--sky) 58%, var(--sky-2) 100%);
+  color:var(--ink);
+}
+.hero h1{ color:var(--ink) }
+.hero h1 em{ color:var(--brand-dark) }
+.hero p{ color:var(--ink-soft) }
+.hero .eyebrow{ color:var(--brand-dark) }
+.hero__ticks{ color:var(--ink) }
+.hero .btn--outline-light{
+  background:#fff;color:var(--ink);border:1.5px solid #c9d8ec;
+  box-shadow:0 1px 2px rgba(16,28,56,.05);
+}
+.hero .btn--outline-light:hover{ background:#f3f8ff;border-color:var(--blue) }
+/* the photo slot and placeholders go back to their light treatment */
+.hero .photo{ border-color:var(--line); background:var(--paper-2) }
+.hero .photo__note{ background:rgba(255,255,255,.76); color:#4a566b }
+.hero .photo__note strong{ color:var(--brand-dark) }
+.hero .ph{ background:#fff6e5;border-color:#f0d9a8;color:#8a6a12 }
+.hero .ph__ask{ color:#6b5a2e }
+
+/* --- TOUR band: bright blue tint, dark text --- */
+.tour{ background:linear-gradient(160deg,var(--sky) 0%,#e4f6f6 100%); color:var(--ink) }
+.tour h2{ color:var(--ink) }
+.tour p{ color:var(--ink-soft) }
+.tour .eyebrow{ color:var(--blue) }
+.tour .btn--outline-light{
+  background:#fff;color:var(--ink);border:1.5px solid #c9d8ec;box-shadow:none;
+}
+.tour .btn--outline-light:hover{ background:#f3f8ff;border-color:var(--blue) }
+
+/* --- FOOTER: lifted off black onto a soft blue --- */
+.ftr{ background:#1d3a6b; color:#d7e4f7 }
+.ftr a{ color:#fff }
+.ftr h3{ color:#fff }
+
+/* --- stats card sits on light now, so it needs its own edge --- */
+.stats__grid{ background:#fff }
+
+/* Stronger colour in the hero: bright should still mean COLOURFUL,
+   not white. Measured by eye at 1280 after the first pass read washed out. */
+.hero{
+  background:
+    radial-gradient(680px 400px at 4% -14%, rgba(246,185,59,.72), transparent 60%),
+    radial-gradient(640px 380px at 42% -20%, rgba(74,163,240,.60), transparent 58%),
+    radial-gradient(700px 420px at 92% -6%, rgba(23,162,162,.52), transparent 60%),
+    radial-gradient(620px 420px at 70% 108%, rgba(232,70,138,.22), transparent 62%),
+    linear-gradient(180deg,#fffdf7 0%, #eaf4ff 55%, #ddf1f4 100%);
+}
+.creds{ background:linear-gradient(90deg,#fff6e8,#eaf4ff 50%,#e6f7f3) }
+.band{ background:linear-gradient(180deg,#f8fbff,#f4f9ff) }
+
+/* The colour was centred ABOVE the fold, so the visible hero still read
+   white. Centres pulled down into the viewport. Checked at 1280x1000. */
+.hero{
+  background:
+    radial-gradient(620px 420px at 2% 18%,  rgba(246,185,59,.80), transparent 62%),
+    radial-gradient(600px 420px at 38% -4%, rgba(74,163,240,.62), transparent 60%),
+    radial-gradient(680px 460px at 96% 22%, rgba(23,162,162,.62), transparent 62%),
+    radial-gradient(560px 420px at 66% 104%,rgba(232,70,138,.34), transparent 64%),
+    linear-gradient(180deg,#fffdf6 0%, #e7f2ff 52%, #d8f0f3 100%);
 }
