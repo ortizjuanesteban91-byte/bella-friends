@@ -66,8 +66,11 @@ export default async function RootLayout({ children, params }) {
               "document.documentElement.classList.add('js-reveal');" +
               "var io=new IntersectionObserver(function(es){es.forEach(function(e){" +
               "if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});}," +
-              "{rootMargin:'0px 0px -8% 0px',threshold:0.08});" +
-              "n.forEach(function(el,i){el.style.setProperty('--d',(i%6)*55+'ms');io.observe(el);});}" +
+              "{rootMargin:'240px 0px 240px 0px',threshold:0});" +
+              "n.forEach(function(el,i){el.style.setProperty('--d',(i%6)*55+'ms');" +
+              "if(el.getBoundingClientRect().top<innerHeight*1.15){el.classList.add('in');}else{io.observe(el);}});" +
+              "setTimeout(function(){n.forEach(function(el){" +
+              "if(el.getBoundingClientRect().top<innerHeight)el.classList.add('in');});},1200);}" +
               "if(document.readyState!=='loading')go();else addEventListener('DOMContentLoaded',go);" +
               "}catch(e){}})();",
           }}

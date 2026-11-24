@@ -691,3 +691,94 @@ img,svg{max-width:100%;height:auto}
   .hero__ticks{ margin-top:16px; gap:7px 14px; font-size:.86rem }
   .hero--slides{ padding-block:34px 44px }
 }
+
+/* ============================================================
+   THE GLASS GOT SMALLER AGAIN, ESPECIALLY ON A PHONE.
+   His word 2026-11-24, pointing at the phone: "This is too big.
+   It could be divided and look smaller on a phone because it
+   needs to be phone very classy, and I need to see the
+   background. It takes all the background."
+   The ticks moved OUT of the panel (Hero.jsx). What is left in
+   the glass is the eyebrow, the headline and the two buttons.
+   ============================================================ */
+.hero__ticks{
+  display:flex; gap:8px; flex-wrap:wrap; list-style:none;
+  margin:16px 0 0; padding:0;
+}
+.hero__ticks li{
+  display:inline-flex; align-items:center; gap:7px;
+  background:rgba(255,255,255,.80);
+  backdrop-filter:blur(10px) saturate(140%);
+  -webkit-backdrop-filter:blur(10px) saturate(140%);
+  border:1px solid rgba(255,255,255,.9);
+  border-radius:999px; padding:.42em .85em;
+  font-size:.84rem; font-weight:650; color:var(--ink);
+  box-shadow:0 1px 2px rgba(16,28,56,.05);
+}
+.hero__ticks .tick{ width:18px; height:18px; font-size:.62rem }
+
+/* PHONE: a short panel with the photo breathing above, beside and below it. */
+@media (max-width:620px){
+  .hero--slides{ padding-block:22px 30px }
+  .hero__glass{
+    max-width:none;
+    padding:16px 15px 17px;
+    border-radius:18px;
+    background:rgba(255,255,255,.82);
+  }
+  .hero__glass .eyebrow{ font-size:.63rem; letter-spacing:.1em; margin-bottom:.5em }
+  .hero__glass h1{ font-size:clamp(1.5rem,6.4vw,1.95rem); line-height:1.1 }
+  .hero__glass p{ font-size:.9rem; margin-bottom:.8em }
+  .hero__glass .ph{ font-size:.7rem; padding:.18em .5em }
+  .hero__glass .ph__ask{ font-size:.78rem; flex-basis:100% }
+  .hero__cta{ gap:8px; margin-top:14px }
+  .hero__cta .btn{ padding:.72em 1.2em; font-size:.92rem; flex:1 1 auto }
+  .hero__ticks{ margin-top:12px; gap:6px }
+  .hero__ticks li{ font-size:.76rem; padding:.34em .7em }
+}
+/* Very narrow phones: stack the two buttons rather than squeeze them. */
+@media (max-width:380px){
+  .hero__cta .btn{ flex:1 1 100% }
+}
+/* iPad and up: the panel stays a panel, never a wall. */
+@media (min-width:621px){
+  .hero__glass{ max-width:520px }
+}
+@media (min-width:1200px){
+  .hero__glass{ max-width:540px }
+}
+
+/* His phone, 2026-11-24 14:25: the panel still filled the whole screen.
+   Measured from his own screenshot: the eyebrow wrapped to THREE lines, the
+   headline to four, the tagline placeholder to four, and the two buttons
+   stacked. That is the whole viewport before any photo shows. */
+.eyebrow--narrow{ display:none }
+@media (max-width:620px){
+  .eyebrow--wide{ display:none }
+  .eyebrow--narrow{ display:block }
+
+  .hero__glass{ padding:14px 14px 15px; border-radius:16px }
+  .hero__glass h1{ font-size:clamp(1.35rem,5.6vw,1.7rem); line-height:1.12; margin-bottom:.42em }
+  .hero__glass .eyebrow{ font-size:.6rem; margin-bottom:.45em }
+
+  /* the tagline placeholder becomes one compact strip, not a paragraph block */
+  .hero__glass .ph{
+    display:block; padding:.4em .6em; border-radius:9px;
+    font-size:.6rem; letter-spacing:.06em; line-height:1.3;
+  }
+  .hero__glass .ph__ask{
+    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical;
+    overflow:hidden; font-size:.74rem; line-height:1.35; margin-top:2px;
+  }
+
+  /* buttons side by side, so they cost one row instead of two */
+  .hero__cta{ display:flex; flex-wrap:nowrap; gap:7px; margin-top:12px }
+  .hero__cta .btn{
+    flex:1 1 0; min-width:0; padding:.68em .6em; font-size:.84rem;
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis; display:block;
+    text-align:center; line-height:1.5;
+  }
+}
+@media (max-width:360px){
+  .hero__cta .btn{ font-size:.78rem; padding:.66em .45em }
+}
