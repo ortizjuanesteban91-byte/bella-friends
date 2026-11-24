@@ -629,3 +629,65 @@ img,svg{max-width:100%;height:auto}
   padding:10px 12px; color:#6b5a2e; max-width:none;
 }
 .slotnote strong{ color:#8a6a12 }
+
+/* ============================================================
+   MOTION ON SCROLL + A SMALLER PIECE OF GLASS.
+   His word 2026-11-24: "I need a little more motion. Once you
+   scroll the page, they come in together like very little
+   motion. And the glass is too big. We want a smaller one so
+   the background can be seen, and mobile responsive, computer
+   and iPad."
+   ============================================================ */
+
+/* Only armed once the script has run, so no-JS shows everything. */
+.js-reveal #programs .card,
+.js-reveal .why-grid .wcard,
+.js-reveal .facts li,
+.js-reveal .faq__item,
+.js-reveal .stats .stat,
+.js-reveal .creds .cred,
+.js-reveal #locations .card,
+.js-reveal main section .head,
+.js-reveal .hero__glass{
+  opacity:0; transform:translateY(16px);
+  transition:opacity .55s cubic-bezier(.22,.61,.36,1) var(--d,0ms),
+             transform .55s cubic-bezier(.22,.61,.36,1) var(--d,0ms);
+  will-change:opacity,transform;
+}
+.js-reveal .in{ opacity:1; transform:none }
+@media (prefers-reduced-motion:reduce){
+  .js-reveal #programs .card,.js-reveal .why-grid .wcard,.js-reveal .facts li,
+  .js-reveal .faq__item,.js-reveal .stats .stat,.js-reveal .creds .cred,
+  .js-reveal #locations .card,.js-reveal main section .head,.js-reveal .hero__glass{
+    opacity:1!important; transform:none!important; transition:none!important;
+  }
+}
+
+/* SMALLER GLASS, so the room behind it is the point again. */
+.hero__glass{
+  max-width:560px;
+  padding:clamp(18px,2.4vw,30px);
+  border-radius:24px;
+  background:rgba(255,255,255,.80);
+}
+.hero__glass h1{ font-size:clamp(1.9rem,4.4vw,3.1rem) }
+.hero__glass p{ font-size:.98rem }
+.hero__ticks{ gap:8px 18px; margin-top:20px; font-size:.9rem }
+.hero--slides{ padding-block:clamp(44px,6vw,86px) }
+
+/* iPad, portrait and landscape: the glass must not swell to fill the width. */
+@media (min-width:700px) and (max-width:1100px){
+  .hero__glass{ max-width:min(560px,78%) }
+  .stats__grid{ grid-template-columns:1fr 1fr }
+  .stat:nth-child(1),.stat:nth-child(2){ border-bottom:1px solid var(--line) }
+  .stat:nth-child(2){ border-right:0 }
+}
+/* Phone: glass goes full width but stays short, so the photo is still visible
+   above and below it. */
+@media (max-width:620px){
+  .hero__glass{ max-width:none; padding:18px 16px; border-radius:20px;
+    background:rgba(255,255,255,.86) }
+  .hero__glass h1{ font-size:clamp(1.7rem,7.4vw,2.3rem) }
+  .hero__ticks{ margin-top:16px; gap:7px 14px; font-size:.86rem }
+  .hero--slides{ padding-block:34px 44px }
+}
