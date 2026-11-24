@@ -13,6 +13,53 @@ import { site, val, ORIGIN, INDEXABLE } from "@/lib/site";
  * crawlers read the server HTML. A nested layout cannot own <html>, so the only
  * real fix is a [lang] root segment - which is what this is, from day one.
  */
+/**
+ * MOTION FOR PHONES THAT CANNOT DO IT IN CSS.
+ * caniuse, opened 2026-11-24: animation-timeline:view() landed in iOS Safari
+ * 26.0. Anything older - which is most iPhones in a parent's hand right now -
+ * gets no scroll motion from the CSS path, so this supplies it.
+ *
+ * IT CANNOT BLANK THE PAGE. That is the whole design, and it is the lesson
+ * from his 13:51 screenshots written into code:
+ *   1. It hides nothing up front. It builds the observer FIRST.
+ *   2. Only when the observer has actually fired - proof it works on this
+ *      browser - does it hide anything, and then only elements that are
+ *      OFF SCREEN at that instant.
+ *   3. CSS keyframe rvFailsafe forces any hidden element visible after 5s
+ *      with no script involved at all.
+ * If any step fails, the page is simply the page, fully visible.
+ */
+const REVEAL = `(function(){try{
+ if(window.CSS&&CSS.supports&&CSS.supports("animation-timeline","view()"))return;
+ if(!("IntersectionObserver"in window))return;
+ var SEL="#programs .card,.why-grid .wcard,#locations .card,.facts,.faq__item,main section .head,.stats__grid,.creds .cred";
+ function go(){
+  var els=[].slice.call(document.querySelectorAll(SEL));
+  if(!els.length)return;
+  var armed=false;
+  var io=new IntersectionObserver(function(entries){
+   if(!armed){
+    armed=true;
+    /* MEASURED 2026-11-24 at 390px: deciding this from e.isIntersecting
+       left ONE card hidden while it sat on screen, because the observer
+       had a negative bottom rootMargin. The rect is the only honest test:
+       hide ONLY what is strictly below the fold. */
+    var vh=window.innerHeight||0;
+    els.forEach(function(el){
+     if(el.getBoundingClientRect().top>=vh)el.classList.add("rv-el");
+    });
+    document.documentElement.setAttribute("data-rv","on");
+    return;
+   }
+   entries.forEach(function(e){
+    if(e.isIntersecting){e.target.classList.add("rv-in");io.unobserve(e.target);}
+   });
+  },{rootMargin:"0px",threshold:0.01});
+  els.forEach(function(el){io.observe(el);});
+ }
+ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",go);else go();
+}catch(e){try{document.documentElement.removeAttribute("data-rv");}catch(x){}}})();`;
+
 export function generateStaticParams() { return LANGS.map((lang) => ({ lang })); }
 
 export async function generateMetadata({ params }) {
@@ -51,6 +98,7 @@ export default async function RootLayout({ children, params }) {
       <body>
         <a className="skip" href="#main">Skip to content</a>
         {children}
+        <script dangerouslySetInnerHTML={{ __html: REVEAL }} />
       </body>
     </html>
   );

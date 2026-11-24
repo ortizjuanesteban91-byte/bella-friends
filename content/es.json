@@ -93,5 +93,6 @@
   "Your name": "Su nombre",
   "{answered} of {total} answered. The rest are waiting on the school and are marked.": "{answered} de {total} respondidas. Las demás esperan información de la escuela y están marcadas.",
   "{campus}: {addr}": "{campus}: {addr}",
-  "{name} — Licensed Preschool and Childcare in {area}": "{name} — Preescolar y cuidado infantil con licencia en {area}"
+  "{name} — Licensed Preschool and Childcare in {area}": "{name} — Preescolar y cuidado infantil con licencia en {area}",
+  "Swipe": "Desliza"
 }

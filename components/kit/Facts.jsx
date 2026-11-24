@@ -17,6 +17,7 @@ export default function Facts({ t }) {
     { k: t("Hours"), f: site.contact.hours },
   ];
   return (
+    <>
     <ul className="facts">
       {rows.map((r) => (
         <li key={r.k}>
@@ -27,5 +28,10 @@ export default function Facts({ t }) {
         </li>
       ))}
     </ul>
+    {/* phone and iPad only (CSS hides it on desktop): says out loud that the
+        band swipes, because these are the TRUST facts - a parent must not
+        miss one because it looked like the band ended at card two. */}
+    <p className="facts-hint" aria-hidden="true">{t("Swipe")} <span /> &rarr;</p>
+    </>
   );
 }

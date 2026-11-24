@@ -807,13 +807,18 @@ img,svg{max-width:100%;height:auto}
 .js-reveal .creds .cred,
 .js-reveal #locations .card,
 .js-reveal main section .head,
-.js-reveal .hero__glass,
-#programs .card, .why-grid .wcard, .facts li, .faq__item,
-.stats .stat, .creds .cred, #locations .card, main section .head, .hero__glass{
+.js-reveal .hero__glass{
   opacity:1 !important;
   transform:none !important;
   will-change:auto;
 }
+/* 2026-11-24: the bare selector list was REMOVED from the rule above.
+   MEASURED at 390px before removing it: #programs .card below the fold
+   computed opacity:1, transform:none while animationName was bfRise and
+   animationTimeline was view(). An !important declaration beats a keyframe,
+   so this block was silently cancelling the scroll motion I shipped in
+   0bcdfd5 - on every browser, not just old iOS. His words: "where is the
+   motion", then "What about the motion". That is the cause. */
 
 /* The modern feel, done with things that CANNOT leave a blank page:
    the hero slideshow still moves, and everything else lifts on hover. */
@@ -881,7 +886,7 @@ img,svg{max-width:100%;height:auto}
     #programs .card,
     .why-grid .wcard,
     #locations .card,
-    .facts li,
+    .facts,
     .faq__item,
     main section .head{
       animation:bfRise linear both;
@@ -906,5 +911,87 @@ img,svg{max-width:100%;height:auto}
       animation-range:exit 0% exit 100%;
     }
     @keyframes bfDrift{ from{ transform:translateY(0) } to{ transform:translateY(7%) } }
+  }
+}
+
+/* ============================================================
+   2026-11-24 - TWO THINGS HE ASKED FOR IN ONE PASS
+   "What about the motion"
+   "Make it a slider and scrollable at the same time"
+
+   1) MOTION ON HIS ACTUAL PHONE.
+      animation-timeline:view() is the right tool and needs no script,
+      but caniuse (opened this turn) says iOS Safari only got it in
+      26.0 - every iPhone on iOS 18 or earlier gets nothing from it.
+      So there is now a JS path for those phones, and it is built so
+      it CANNOT blank the page:
+        - it hides NOTHING until the IntersectionObserver has actually
+          fired once, proving the mechanism works on that browser
+        - it only ever hides elements that are OFF SCREEN at that
+          moment, so nothing a parent is looking at can disappear
+        - rvFailsafe forces every hidden element visible after 5s in
+          PURE CSS, with no script involved, as a last backstop
+      That is the lesson from 13:51 written into the code: never ship
+      a pattern whose failure mode is invisible content.
+
+   2) THE FACTS BAND IS A SLIDER ON PHONE AND IPAD.
+      Five tall boxes was a wall. It swipes right, snaps, bleeds to
+      both screen edges and shows a peek of the next card so it reads
+      as scrollable. Grid from 900px up, unchanged.
+   ============================================================ */
+
+/* ---- 1. the JS motion path, armed only after proof ---- */
+@keyframes rvFailsafe{ to{ opacity:1; transform:none } }
+html[data-rv="on"] .rv-el{
+  opacity:0;
+  transform:translateY(22px);
+  transition:opacity .6s cubic-bezier(.22,.61,.36,1),
+             transform .6s cubic-bezier(.22,.61,.36,1);
+  will-change:opacity,transform;
+  animation:rvFailsafe 1ms linear 5s forwards;
+}
+html[data-rv="on"] .rv-el.rv-in{ opacity:1; transform:none }
+@media (prefers-reduced-motion:reduce){
+  html[data-rv="on"] .rv-el{
+    opacity:1; transform:none; transition:none; animation:none;
+  }
+}
+
+/* ---- 2. the facts slider ---- */
+.facts-hint{ display:none }            /* desktop: grid, no hint */
+@media (max-width:899px){
+  .facts{
+    display:flex;
+    grid-template-columns:none;
+    gap:12px;
+    overflow-x:auto;
+    overflow-y:visible;
+    scroll-snap-type:x proximity;
+    -webkit-overflow-scrolling:touch;
+    overscroll-behavior-x:contain;
+    scrollbar-width:none;
+    /* bleed past the shell so card 2 peeks at the right edge */
+    margin-inline:calc(max(20px,env(safe-area-inset-left,0px)) * -1);
+    padding-inline:max(20px,env(safe-area-inset-left,0px));
+    padding-block:4px 14px;
+  }
+  .facts::-webkit-scrollbar{ display:none }
+  .facts li{
+    flex:0 0 76%;
+    max-width:320px;
+    scroll-snap-align:start;
+  }
+  .facts li:last-child{
+    /* so the last card can sit fully clear of the right edge */
+    margin-right:max(20px,env(safe-area-inset-right,0px));
+  }
+  /* the swipe hint, phone and iPad only, muted */
+  .facts-hint{
+    display:flex;align-items:center;gap:7px;
+    margin:2px 0 0;font-size:.74rem;font-weight:700;
+    letter-spacing:.09em;text-transform:uppercase;color:var(--ink-soft);
+  }
+  .facts-hint span{
+    flex:1;height:1px;background:var(--line);
   }
 }
