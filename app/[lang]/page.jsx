@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { makeT } from "@/lib/t";
 import { site, val, filled } from "@/lib/site";
+import { addressOneLine } from "@/lib/schema";
 import Header from "@/components/kit/Header";
 import Hero from "@/components/kit/Hero";
 import Facts from "@/components/kit/Facts";
@@ -8,6 +9,7 @@ import Programs from "@/components/kit/Programs";
 import CallBar from "@/components/kit/CallBar";
 import Footer from "@/components/kit/Footer";
 import Schema from "@/components/kit/Schema";
+import HomeFaq from "@/components/kit/HomeFaq";
 import F from "@/components/kit/Placeholder";
 import PhotoSlot from "@/components/kit/PhotoSlot";
 
@@ -28,6 +30,8 @@ export default async function Home({ params }) {
   const { lang } = await params;
   const t = makeT(lang);
   const city = val(site.campuses[0]?.city);
+  const addr = addressOneLine(site);
+  const mapQ = val(site.campuses[0]?.mapQuery) || addr;
 
   const why = [
     [t("You get the owner, not a call centre"),
@@ -135,6 +139,45 @@ export default async function Home({ params }) {
           </div>
         </section>
 
+
+        {/* LOCATIONS — layout 3 has this band. It only exists now because the
+            address is real (config/site.json, sourced from the hub preset). */}
+        <section id="locations">
+          <div className="shell">
+            <div className="head">
+              <p className="eyebrow">{t("Where we are")}</p>
+              <h2>{city ? t("Find us in {city}", { city }) : t("Find us")}</h2>
+            </div>
+            <div className="cards">
+              {site.campuses.map((c) => (
+                <article className="card" key={c.name}>
+                  <h3>{c.name}</h3>
+                  {addr
+                    ? <p style={{ fontWeight: 650, color: "var(--ink)" }}>{addr}</p>
+                    : <p><F fact={site.campuses[0].street} block /></p>}
+                  <p style={{ margin: "0 0 1em" }}>
+                    {filled(site.contact.hours)
+                      ? site.contact.hours.value
+                      : <span className="todo">{t("Hours — to add")}</span>}
+                  </p>
+                  {mapQ && (
+                    <a className="btn btn--ghost btn--wide"
+                       href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapQ)}`}
+                       target="_blank" rel="noreferrer">
+                      {t("Open in Google Maps")}
+                    </a>
+                  )}
+                </article>
+              ))}
+              <article className="card">
+                <h3>{t("Coming for a tour?")}</h3>
+                <p>{t("Tell us your child's age and the month you need, and Brittany will give you a time that suits you.")}</p>
+                <Link className="btn btn--wide" href={`/${lang}/visit`}>{t("Book a tour")}</Link>
+              </article>
+            </div>
+          </div>
+        </section>
+
         {/* THE NEXT STEP */}
         <section className="tour" id="tour">
           <div className="shell">
@@ -147,6 +190,7 @@ export default async function Home({ params }) {
             </div>
           </div>
         </section>
+        <HomeFaq lang={lang} t={t} />
       </main>
       <Footer lang={lang} t={t} />
       <CallBar lang={lang} t={t} />
