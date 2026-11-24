@@ -594,3 +594,19 @@ img,svg{max-width:100%;height:auto}
 @media (max-width:620px){
   .hero__glass{ border-radius:22px; padding:20px 18px }
 }
+
+/* The scrim was so strong the photo behind it read as white. The GLASS is
+   what makes the text legible, so the scrim only has to take the edge off.
+   Checked live at 800px: picture visible, headline still ink-dark. */
+.hero__scrim{
+  background:
+    linear-gradient(100deg, rgba(255,253,246,.55) 0%, rgba(255,253,246,.18) 46%, rgba(234,244,255,.10) 100%),
+    linear-gradient(180deg, rgba(255,255,255,.10) 0%, rgba(216,240,243,.22) 100%);
+}
+.hero__glass{
+  background:rgba(255,255,255,.74);
+  border-color:rgba(255,255,255,.92);
+}
+@supports not ((backdrop-filter:blur(2px)) or (-webkit-backdrop-filter:blur(2px))){
+  .hero__glass{ background:rgba(255,255,255,.95) }
+}
