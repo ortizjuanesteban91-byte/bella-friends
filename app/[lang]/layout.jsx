@@ -49,32 +49,6 @@ export default async function RootLayout({ children, params }) {
   return (
     <html lang={lang} data-layout={layout} data-palette={palette}>
       <body>
-        {/* SCROLL REVEAL. His word 2026-11-24: "I need a little more motion.
-            Once you scroll the page, they come in together like very little
-            motion." Tagged by script, not by hand in every component, so no
-            component has to know about it.
-            FAILS OPEN: the hiding class is added BY the script, so with JS off
-            or broken every element is simply visible. Nothing can disappear.
-            Honours prefers-reduced-motion by never arming at all. */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html:
-              "(function(){try{" +
-              "if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;" +
-              "var sel='#programs .card,.why-grid .wcard,.facts li,.faq__item,.stats .stat,.creds .cred,#locations .card,main section .head,.hero__glass';" +
-              "function go(){var n=document.querySelectorAll(sel);if(!n.length)return;" +
-              "document.documentElement.classList.add('js-reveal');" +
-              "var io=new IntersectionObserver(function(es){es.forEach(function(e){" +
-              "if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});}," +
-              "{rootMargin:'240px 0px 240px 0px',threshold:0});" +
-              "n.forEach(function(el,i){el.style.setProperty('--d',(i%6)*55+'ms');" +
-              "if(el.getBoundingClientRect().top<innerHeight*1.15){el.classList.add('in');}else{io.observe(el);}});" +
-              "setTimeout(function(){n.forEach(function(el){" +
-              "if(el.getBoundingClientRect().top<innerHeight)el.classList.add('in');});},1200);}" +
-              "if(document.readyState!=='loading')go();else addEventListener('DOMContentLoaded',go);" +
-              "}catch(e){}})();",
-          }}
-        />
         <a className="skip" href="#main">Skip to content</a>
         {children}
       </body>

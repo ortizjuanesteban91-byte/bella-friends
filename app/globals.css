@@ -782,3 +782,49 @@ img,svg{max-width:100%;height:auto}
 @media (max-width:360px){
   .hero__cta .btn{ font-size:.78rem; padding:.66em .45em }
 }
+
+/* ============================================================
+   SCROLL REVEAL REMOVED. 2026-11-24.
+   It broke his page twice. His screenshots at 13:51 show the
+   stats band, the facts and whole sections rendering as blank
+   white blocks: they were sitting at opacity 0 because the
+   observer never revealed them on his browser. His word:
+   "Page is broken." Then: "no motion at all".
+
+   A page that can render blank is not worth any animation. The
+   hiding is gone, so nothing on this site depends on a script
+   running to be visible. The modern feel comes from the design
+   - glass, colour, type, shadows, hover - not from a fade.
+
+   These overrides kill the earlier rules without deleting them,
+   so the history of what went wrong stays readable above.
+   ============================================================ */
+.js-reveal #programs .card,
+.js-reveal .why-grid .wcard,
+.js-reveal .facts li,
+.js-reveal .faq__item,
+.js-reveal .stats .stat,
+.js-reveal .creds .cred,
+.js-reveal #locations .card,
+.js-reveal main section .head,
+.js-reveal .hero__glass,
+#programs .card, .why-grid .wcard, .facts li, .faq__item,
+.stats .stat, .creds .cred, #locations .card, main section .head, .hero__glass{
+  opacity:1 !important;
+  transform:none !important;
+  will-change:auto;
+}
+
+/* The modern feel, done with things that CANNOT leave a blank page:
+   the hero slideshow still moves, and everything else lifts on hover. */
+.card, .wcard, .faq__item, .stats__grid, .facts li{
+  transition:transform .2s cubic-bezier(.22,.61,.36,1),
+             box-shadow .2s cubic-bezier(.22,.61,.36,1),
+             border-color .2s ease;
+}
+.card:hover, .wcard:hover{ transform:translateY(-4px) }
+.facts li:hover{ transform:translateY(-2px) }
+.btn{ transition:transform .15s ease, box-shadow .15s ease, background .15s ease }
+.btn:active{ transform:translateY(1px) }
+.hdr__badge{ transition:transform .25s cubic-bezier(.34,1.56,.64,1) }
+.hdr__mark:hover .hdr__badge{ transform:rotate(-8deg) scale(1.06) }
