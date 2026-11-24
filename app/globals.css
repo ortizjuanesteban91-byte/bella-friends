@@ -995,3 +995,9 @@ html[data-rv="on"] .rv-el.rv-in{ opacity:1; transform:none }
     flex:1;height:1px;background:var(--line);
   }
 }
+
+/* #locations now holds ONE card (the duplicate tour card was cut 2026-11-24).
+   auto-fit would stretch that single card across the full 1200px shell and
+   look broken on desktop, so cap it. Phone and iPad are unaffected: the
+   column can never exceed the space it has. */
+#locations .cards{ grid-template-columns:minmax(0,560px) }

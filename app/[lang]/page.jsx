@@ -189,11 +189,15 @@ export default async function Home({ params }) {
                   </div>
                 </article>
               ))}
-              <article className="card">
-                <h3>{t("Coming for a tour?")}</h3>
-                <p>{t("Tell us your child's age and the month you need, and Brittany will give you a time that suits you.")}</p>
-                <Link className="btn btn--wide" href={`/${lang}/visit`}>{t("Book a tour")}</Link>
-              </article>
+              {/* THE "COMING FOR A TOUR?" CARD WAS REMOVED HERE, 2026-11-24.
+                  His word, with the screenshot: "Isn't that too repetitive at
+                  the same place?" COUNTED ON THE LIVE PAGE before cutting it:
+                  "Book a tour" appeared 5 times, and this card at y7205 was a
+                  straight duplicate of the tour band at y7555 - same words,
+                  same /visit link, same button, 350px apart, with the sticky
+                  call bar carrying a THIRD one on the same screen.
+                  Locations now does its own job: where we are, hours, the map
+                  and what is still owed. The tour band right below is the ask. */}
             </div>
           </div>
         </section>
