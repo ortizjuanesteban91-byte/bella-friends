@@ -2,6 +2,7 @@ import { cookies, headers } from "next/headers";
 import { notFound } from "next/navigation";
 import "../globals.css";
 import { LANGS, isLang, makeT } from "@/lib/t";
+import Ask from "@/components/kit/Ask";
 import { resolveLayout, resolvePalette } from "@/lib/layout";
 import { site, val, ORIGIN, INDEXABLE } from "@/lib/site";
 
@@ -126,6 +127,7 @@ export async function generateMetadata({ params }) {
 export default async function RootLayout({ children, params }) {
   const { lang } = await params;
   if (!isLang(lang)) notFound();
+  const t = makeT(lang); // Ask's labels are translated here so no dictionary ships to the browser
   const h = await headers();
   const c = await cookies();
   const layout = resolveLayout(h.get("x-bf-layout") || c.get("bf_layout")?.value, site.brand.layout);
@@ -135,6 +137,21 @@ export default async function RootLayout({ children, params }) {
       <body>
         <a className="skip" href="#main">Skip to content</a>
         {children}
+        {/* ROW 412: /api/ask had no caller on any page until 2026-11-25.
+            Labels are translated HERE so the dictionary never ships to the browser. */}
+        <Ask
+          lang={lang}
+          labels={{
+            openBtn: t("Ask a question"),
+            close: t("Close"),
+            title: t("Ask the school"),
+            hint: t("Ask about ages, hours, the licence or booking a tour."),
+            placeholder: t("Type your question"),
+            send: t("Send"),
+            thinking: t("Checking…"),
+            broke: t("Something went wrong on our side, so I am not going to guess. Please call or use the tour form."),
+          }}
+        />
         <script dangerouslySetInnerHTML={{ __html: REVEAL }} />
         <script dangerouslySetInnerHTML={{ __html: FACTS_SLIDER }} />
       </body>
