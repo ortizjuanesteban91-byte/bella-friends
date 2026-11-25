@@ -40,7 +40,7 @@ export default async function Page({ params, searchParams }) {
   return (
     <>
       <Header lang={lang} t={t} />
-      <main id="main">
+      <main id="main" className="page-visit">
         <section>
           <div className="shell" style={{ maxWidth: 620 }}>
             <p className="eyebrow">{t("Book a tour")}</p>
