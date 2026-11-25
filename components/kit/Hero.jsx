@@ -18,8 +18,10 @@ import F from "./Placeholder";
  */
 export default function Hero({ lang, t, qs = "" }) {
   const city = val(site.campuses[0]?.city) || "North Carolina";
-  const first = site.programs[0]?.ages || "";
-  const last = site.programs[site.programs.length - 1]?.ages || "";
+  /* TRANSLATE THE RANGE BEFORE SPLITTING IT. 2026-11-25: a Spanish parent read
+     "6 weeks - 18 months" because p.ages went to the page raw, never through t(). */
+  const first = site.programs[0]?.ages ? t(site.programs[0].ages) : "";
+  const last = site.programs.at(-1)?.ages ? t(site.programs.at(-1).ages) : "";
   const span = first && last ? `${first.split("-")[0].trim()} – ${last.split("-").pop().trim()}` : "";
 
   // one source of truth: hero photo, then each room's photo, then outside.

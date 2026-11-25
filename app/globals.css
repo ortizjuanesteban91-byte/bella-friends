@@ -1001,3 +1001,59 @@ html[data-rv="on"] .rv-el.rv-in{ opacity:1; transform:none }
    look broken on desktop, so cap it. Phone and iPad are unaffected: the
    column can never exceed the space it has. */
 #locations .cards{ grid-template-columns:minmax(0,560px) }
+
+/* ---------- ASK (row 412: the bot finally has a mouth) ----------
+   Sits clear of .callbar, which is sticky-bottom and only shows under 760px.
+   Every tap target is 48px: we shipped a 262x23px one once with 1,713 green tests. */
+.ask__open{
+  position:fixed;z-index:40;
+  right:max(16px,env(safe-area-inset-right,0px));
+  bottom:calc(16px + env(safe-area-inset-bottom,0px));
+  min-height:48px;padding:0 20px;border-radius:999px;border:0;cursor:pointer;
+  background:var(--navy);color:#fff;font:inherit;font-weight:600;
+  box-shadow:0 6px 24px rgba(0,0,0,.22);
+}
+@media (max-width:760px){
+  /* clear the call bar so neither covers the other */
+  .ask__open{bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+}
+.ask{
+  position:fixed;z-index:41;display:flex;flex-direction:column;
+  right:max(16px,env(safe-area-inset-right,0px));
+  left:max(16px,env(safe-area-inset-left,0px));
+  bottom:calc(76px + env(safe-area-inset-bottom,0px));
+  max-width:380px;margin-left:auto;
+  max-height:min(70vh,520px);
+  background:var(--paper);border:1px solid var(--line);border-radius:16px;
+  box-shadow:0 18px 50px rgba(0,0,0,.26);overflow:hidden;
+}
+@media (max-width:760px){.ask{bottom:calc(144px + env(safe-area-inset-bottom,0px))}}
+/* display:flex on .ask beats the hidden attribute, so the closed panel
+   was painting over the tour form on a phone. Measured 2026-11-25 at 390px. */
+.ask[hidden]{display:none !important}
+/* Same rule as the visit page itself: no sticky bottom chrome on the form.
+   A fixed Ask button sat on the start-month field at 390px. */
+body:has(.page-visit) .ask__open,
+body:has(.page-visit) .ask{display:none !important}
+
+.ask__head{display:flex;align-items:center;justify-content:space-between;
+  gap:8px;padding:12px 14px;border-bottom:1px solid var(--line)}
+.ask__x{min-width:48px;min-height:48px;border:0;background:none;cursor:pointer;
+  font-size:1.5rem;line-height:1;color:inherit}
+.ask__log{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:12px}
+.ask__hint{margin:0;opacity:.72;font-size:.92rem}
+.ask__turn p{margin:0 0 6px}
+.ask__turn--you{align-self:flex-end;max-width:85%;background:color-mix(in srgb,var(--navy) 10%,transparent);
+  padding:8px 12px;border-radius:14px 14px 4px 14px}
+.ask__turn--bot{max-width:92%}
+/* A MISS LOOKS LIKE A MISS. It must be impossible for the bot to fail quietly. */
+.ask__turn--miss{border-left:3px solid var(--navy);padding-left:10px}
+.ask__form{display:flex;gap:8px;padding:12px 14px;border-top:1px solid var(--line)}
+.ask__form input{flex:1;min-width:0;min-height:48px;padding:0 12px;font:inherit;
+  border:1px solid var(--line);border-radius:10px;background:transparent;color:inherit}
+.ask__form .btn{min-height:48px}
+.btn--sm{min-height:40px;padding:0 14px;font-size:.9rem}
+@media (prefers-reduced-motion:no-preference){
+  .ask{animation:askIn .18s ease-out}
+  @keyframes askIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+}
