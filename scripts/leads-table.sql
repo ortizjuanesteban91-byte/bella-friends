@@ -9,8 +9,25 @@
 -- gives Orbilynk ONE inbox across all clients, which is the product.
 --
 -- NOT APPLIED. An agent does not write to a database or run a migration.
--- Spicy applies this, and only then are the two env vars set on the Vercel
--- project and config/site.json integrations.leadStore flipped to "supabase".
+-- Spicy / Claude applies this, and only then are the two env vars set on the
+-- Vercel project and config/site.json integrations.leadStore flipped to
+-- "supabase".
+--
+-- RE-CHECKED 2026-11-25 with list_tables only (no describe, no writes):
+-- public.client_leads DOES NOT EXIST yet on jlezxfjmlctfakwiicep.
+-- public.leads on that project is Trip2's guest table (105 rows). Sonia has
+-- her own public.leads. NEITHER FITS a Bella enquiry — do not insert into
+-- them. This file is the migration to apply, on the Orbilynk / trip2-spicy
+-- project (jlezxfjmlctfakwiicep), the same project that holds public.clients.
+--
+-- ENV VARS TO SET ON THE BELLA-FRIENDS VERCEL PROJECT AFTER THIS RUNS:
+--   SUPABASE_URL            https://jlezxfjmlctfakwiicep.supabase.co
+--   SUPABASE_SERVICE_KEY    the service-role key, never the anon key, never
+--                           committed. Name only in the repo.
+-- Optional safety copy, until this table is live (https, an endpoint Spicy
+-- owns; no default, no third-party mail API):
+--   LEAD_NOTIFY_WEBHOOK
+-- Then flip config/site.json integrations.leadStore from "file" to "supabase".
 --
 -- RLS: enabled with NO policies, which is the house standard measured on
 -- 2026-11-23 (Trip2 20 tables, Sonia 10, all RLS on, no policies). The server
