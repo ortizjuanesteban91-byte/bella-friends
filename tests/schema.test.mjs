@@ -10,6 +10,23 @@ const cfg = JSON.parse(readFileSync(path.join(ROOT, "config/site.json"), "utf8")
 const t = (s, v) => { let o = s; if (v) for (const [k, x] of Object.entries(v)) o = o.split(`{${k}}`).join(String(x)); return o; };
 const ORIGIN = "https://example.test";
 const deep = (o) => JSON.parse(JSON.stringify(o));
+// THE EMPTY-CONFIG GUARD MUST NOT DEPEND ON THE LIVE CONFIG STAYING EMPTY.
+// 2026-11-25: three tests here asserted "nothing unfilled is sent to Google" by
+// reading config/site.json and trusting it was still blank. On 2026-11-24 the real
+// Thomasville address was filled in and all three went red - the CODE was fine, the
+// tests' premise had expired. `blank` clears every { value } leaf so the guard tests
+// what lib/schema.js actually does with nothing, whatever the live config holds.
+const blank = (o) => {
+  const c = deep(o);
+  (function walk(n) {
+    if (Array.isArray(n)) return n.forEach(walk);
+    if (!n || typeof n !== "object") return;
+    if ("value" in n && "ask" in n) { n.value = Array.isArray(n.value) ? [] : ""; return; }
+    Object.values(n).forEach(walk);
+  })(c);
+  if (c.contact) { c.contact.hoursSpec = []; c.contact.geo = null; }
+  return c;
+};
 
 test("the type is Preschool, confirmed on schema.org 2026-11-23", () => {
   const n = preschoolSchema(cfg, "en", ORIGIN);
@@ -20,7 +37,7 @@ test("the type is Preschool, confirmed on schema.org 2026-11-23", () => {
 });
 
 test("NOTHING UNFILLED IS EVER SENT TO GOOGLE — no licence, no rating, no address, no hours", () => {
-  const n = preschoolSchema(cfg, "en", ORIGIN);
+  const n = preschoolSchema(blank(cfg), "en", ORIGIN);
   assert.equal("hasCertification" in n, false, "a licence was emitted with none on file");
   assert.equal("aggregateRating" in n, false, "we never emit a rating for a school");
   assert.equal("address" in n, false, "an address was emitted with none on file");
@@ -46,7 +63,7 @@ test("the address carries every sub-property we hold — Google's REQUIRED prope
 });
 
 test("a part-filled address emits only the parts we actually hold", () => {
-  const c = deep(cfg);
+  const c = blank(cfg);
   c.campuses[0].city.value = "Greensboro";
   const a = preschoolSchema(c, "en", ORIGIN).address;
   assert.equal(a.addressLocality, "Greensboro");
@@ -55,8 +72,8 @@ test("a part-filled address emits only the parts we actually hold", () => {
 });
 
 test('"NC" IS NOT AN ADDRESS — the empty config yields nothing, not a bare state', () => {
-  assert.equal(addressOneLine(cfg), null);
-  const c = deep(cfg);
+  assert.equal(addressOneLine(blank(cfg)), null);
+  const c = blank(cfg);
   c.campuses[0].city.value = "Greensboro";
   assert.equal(addressOneLine(c), "Greensboro NC");
   c.campuses[0].street.value = "118 Maple St";
