@@ -1,4 +1,6 @@
 import { addLead, storeNote } from "@/lib/leadStore";
+import { formLimited } from "@/lib/formLimit";
+import { clientIp } from "@/lib/adminGate";
 
 export const dynamic = "force-dynamic";
 
@@ -14,6 +16,10 @@ function check(b) {
 }
 
 export async function POST(req) {
+  /* LIMIT FIRST (lockdown 2026-11-26): 5 sends per IP per 10 minutes. Over it,
+     nothing is stored. */
+  const rl = formLimited(clientIp(req.headers));
+  if (rl.limited) return Response.json({ error: "Too many sends. Please wait a few minutes or call the school." }, { status: 429, headers: { "Retry-After": String(rl.retryAfter) } });
   let b;
   try { b = await req.json(); } catch { return Response.json({ error: "Bad request." }, { status: 400 }); }
 

@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { LANGS } from "./lib/t.js";
 import { LAYOUT_IDS, PALETTE_IDS } from "./lib/layout.js";
+import { checkAdmin, clientIp } from "./lib/adminGate.js";
 
 /**
  * THREE JOBS, ALL OF THEM LAYOUT-TOKEN PLUMBING:
@@ -20,14 +21,14 @@ export function middleware(req) {
   //    just because somebody forgot a check. If ADMIN_PASSWORD is not set, this
   //    refuses EVERYONE - an unconfigured deploy is shut, never open. Basic auth
   //    is used because it needs no login page and no crypto on the edge.
+  //    Lockdown 2026-11-26: constant-time compare + 5 wrong passwords per IP =
+  //    locked 15 minutes (lib/adminGate.js). The gate itself is unchanged: no
+  //    ADMIN_PASSWORD means nobody gets in.
   if (/^\/[^/]+\/admin(\/|$)/.test(pathname)) {
     const want = process.env.ADMIN_PASSWORD || "";
-    const sent = req.headers.get("authorization") || "";
-    let ok = false;
-    if (want && sent.startsWith("Basic ")) {
-      try { ok = atob(sent.slice(6)).split(":").slice(1).join(":") === want; } catch { ok = false; }
-    }
-    if (!ok) return new NextResponse("Authentication required.", { status: 401, headers: { "WWW-Authenticate": 'Basic realm="Bella Friends admin"', "Cache-Control": "no-store" } });
+    const g = checkAdmin({ want, header: req.headers.get("authorization") || "", ip: clientIp(req.headers) });
+    if (!g.ok && g.status === 429) return new NextResponse("Too many wrong passwords. Locked for 15 minutes.", { status: 429, headers: { "Retry-After": String(g.retryAfter), "Cache-Control": "no-store" } });
+    if (!g.ok) return new NextResponse("Authentication required.", { status: 401, headers: { "WWW-Authenticate": 'Basic realm="Bella Friends admin"', "Cache-Control": "no-store" } });
   }
 
   if (pathname === "/" || !LANGS.includes(seg)) {

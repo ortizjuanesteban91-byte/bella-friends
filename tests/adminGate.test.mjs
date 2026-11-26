@@ -18,8 +18,9 @@ test("it does not swallow the public site", () => {
 test("the gate FAILS CLOSED: no ADMIN_PASSWORD set means nobody gets in", () => {
   // the source must refuse when the env var is empty, never fall through to the page
   assert.match(SRC, /const want = process\.env\.ADMIN_PASSWORD \|\| ""/);
-  assert.match(SRC, /if \(want && sent\.startsWith\("Basic "\)\)/);
-  assert.match(SRC, /if \(!ok\) return new NextResponse/);
+  // lockdown 2026-11-26: the check moved to lib/adminGate.js (constant-time + lockout); anything but ok = refused
+  assert.match(SRC, /const g = checkAdmin\(\{ want, header: req\.headers\.get\("authorization"\) \|\| "", ip: clientIp\(req\.headers\) \}\);/);
+  assert.match(SRC, /if \(!g\.ok\) return new NextResponse\("Authentication required\."/);
 });
 test("a wrong password is refused and a right one is not", () => {
   // the comparison the middleware performs, run here against the same shape
